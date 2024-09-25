@@ -1,0 +1,42 @@
+# Fichiers et dossiers générés par l'environnement de développement
+Backend/api/node_modules/
+front/node_modules/
+dist/
+build/
+.cache/
+
+# Fichiers de configuration spécifiques à l'environnement local
+Backend/api/.env
+
+# Fichiers de sauvegarde et fichiers temporaires
+*.bak
+*.tmp
+
+# Fichiers de logs
+*.log
+
+# Fichiers de dépendances spécifiques à l'IDE
+.idea/
+Backend/api/.vscode/
+front/.vscode/
+
+# Fichiers de sauvegarde de l'éditeur
+*.swp
+*~
+
+# Fichiers de données sensibles
+config.js
+secrets.json
+
+# Fichiers de documentation générés
+docs/
+
+# Fichiers de cache
+.cache/
+
+# Fichiers de sauvegarde de base de données
+*.db
+*.sqlite
+
+# Fichiers de sauvegarde de l'application
+backup/
