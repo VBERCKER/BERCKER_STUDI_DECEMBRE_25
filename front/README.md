@@ -11,8 +11,8 @@ Ceci est l'application front-end de mon projet. Elle est développée en utilisa
 ## Installation
 1. Clonez ce dépôt : `git clone https://github.com/votre-utilisateur/mon-application-front.git`
 2. Installez les dépendances : `npm install`
-3. Lancez l'application : `npm Run dev `
+3. Lancez l'application : `npm run dev `
 
-## Configuration
-Pour configurer l'application, vous devez créer un fichier `.env` à la racine du projet et y ajouter les variables d'environnement nécessaires.
+
+
 
