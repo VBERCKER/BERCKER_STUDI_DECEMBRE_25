@@ -18,7 +18,7 @@ const utilisateurs = [
     mail: 'organisateur@gmail.com',
     pwd: '$2b$10$FoCYbHpAJZTS3MXiSOc/ouG8c2wXaknDcM.DxZG2Ht5YCLBG1o/Ze' ,
     cles_utilisateur: cles,
-    role: 'false',
+    role: 'true',
     token: 'some_token'
   },
   
