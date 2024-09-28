@@ -9,11 +9,11 @@ export default function Ajouter () {
 
     const [offre,setoffre]= useState({
 
-        Offre :"",
-        Place_offre:"",
-        Prix_offre:"",
-        Places_dispo: "",
-        SPORT_ID :"", 
+        offre :"",
+        place_offre:"",
+        prix_offre:"",
+        places_dispo: "",
+        sport_id :"", 
        
       
     });
@@ -56,29 +56,29 @@ export default function Ajouter () {
        
         <div className="flex-block">
         <label>
-            <input className="input" value={offre.Offre} onChange={handleChange} name="Offre" type="text" placeholder="" required=""/>
+            <input className="input" value={offre.offre} onChange={handleChange} name="offre" type="text" placeholder="" required=""/>
             <span>Nom de l'offre </span>
           
         </label>
         <label>
-            <input className="input"  value={offre.Place_offre} onChange={handleChange} name="Place_offre" type="text" placeholder="" required=""/>
+            <input className="input"  value={offre.place_offre} onChange={handleChange} name="place_offre" type="text" placeholder="" required=""/>
             <span>Place dans l'offre</span>
            
         </label>
 
         <label>
-            <input className="input" value={offre.Places_dispo} onChange={handleChange} name="Places_dispo" type="text" placeholder="" required=""/>
+            <input className="input" value={offre.places_dispo} onChange={handleChange} name="places_dispo" type="text" placeholder="" required=""/>
             <span>Places Disponibles</span>
             
         </label>
         <label>
-            <input className="input" value={offre.Prix_offre} onChange={handleChange} name="Prix_offre" type="text" placeholder="" required=""/>
+            <input className="input" value={offre.prix_offre} onChange={handleChange} name="prix_offre" type="text" placeholder="" required=""/>
             <span>Prix de l'offre </span>
             
         </label>
     </div>  
     <label>
-        <input className="input" value={offre.SPORT_ID} onChange={handleChange} name="SPORT_ID" type="text" placeholder="" required=""/>
+        <input className="input" value={offre.sport_id} onChange={handleChange} name="sport_id" type="text" placeholder="" required=""/>
         <span>id du Sport ou ajouter l'offre</span>
         
     </label>

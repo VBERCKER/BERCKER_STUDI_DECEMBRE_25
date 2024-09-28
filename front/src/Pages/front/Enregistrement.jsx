@@ -2,6 +2,7 @@
 import React from "react";
 import {FormRE} from "../../composants/FormCO";
 import Footer from "../../composants/template/footer";
+import BannerCookies from "../../composants/template/bannerCookies";
 
 
 function Enregistrement(){
@@ -12,7 +13,8 @@ function Enregistrement(){
     </div>
          
     
-    <Footer/>  
+    <Footer/> 
+    <BannerCookies/> 
     </div>
       
     )}

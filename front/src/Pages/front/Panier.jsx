@@ -3,6 +3,7 @@ import Footer  from "../../composants/template/footer";
 import { getTotalPrice,getTickets,remove} from "../../composants/securite_cookies_token_auth_localstorage/gestionpanier";
 import Boutton from "../../composants/bouton";
 import { useNavigate} from "react-router-dom";
+import BannerCookies from "../../composants/template/bannerCookies";
 
 
 export default function PanierFront(){
@@ -116,5 +117,6 @@ export default function PanierFront(){
                    
             </div>
                 <Footer/>
+                <BannerCookies/>
             </div>)
 };

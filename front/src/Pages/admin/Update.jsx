@@ -35,13 +35,13 @@ function handleClickSport(e){
       .then((result)=>{const data =result
         
         setsport({
-            sport : data[0].sport,
-            Offre :data[0].offre,
-            Place_offre:data[0].place_offre,
-            Prix_offre:data[0].prix_offre,
-            Places_dispo:data[0].places_dispo,
-            SPORT_ID :data[0].sport_id, 
-            id : data[0].id}
+            sport : data.sport,
+            Offre :data.offre,
+            Place_offre:data.place_offre,
+            Prix_offre:data.prix_offre,
+            Places_dispo:data.places_dispo,
+            SPORT_ID :data.sport_id, 
+            id : data.id}
          
         )
         hiddenform()
@@ -143,11 +143,7 @@ function handleClickSport(e){
             
         </label>
     </div>  
-    <label>
-        <input type={hidden} className="input"  onChange={handleChange} name="SPORT_ID" placeholder={sport.sport} required=""/>
-        <span>Sport</span>
-        
-    </label>
+    
       <div className={hiddenbtn}>
          <Buton click={handleClick} btn={"Valider les modifications"}/>
       </div>

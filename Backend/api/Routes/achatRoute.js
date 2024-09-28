@@ -1,7 +1,7 @@
 import express from "express";
 import Achat from "../models/achatmodels.js";
 import Utilisateur from '../models/utilisateurModels.js';
-import OffreRouter from "./offreRouter.js";
+import sequelize from 'sequelize';
 import jwt from 'jsonwebtoken';
 import Stripe from 'stripe';
 import env from "dotenv"
@@ -191,6 +191,42 @@ AchatRouter.get("/ebillet/:id", async (req, res) => {
     }
   });
   
+  AchatRouter.get("/vente", async (req, res) => {
+    try {
+      const offres = await Achat.findAll({
+        attributes: [[sequelize.fn("DISTINCT", sequelize.col("offre")), "offre"]],
+      });
+      const offresDataValues = offres.map(offre => offre.dataValues);
+      console.log('ventes:', offresDataValues);
+      res.json(offres);
+    } catch (err) {
+      console.error("Erreur lors de la récupération des offres distinctes:", err);
+    }
+  });
+  
+  // récupérer le nombre d'achats pour une offre
+
+AchatRouter.post("/venteFilter", async (req, res) => {
+  const vente = req.body.vente;
+  console.log(" ventes:", vente);
+  
+
+  if (!vente) {
+    return res.status(400).json({ message: "Il manque un paramètre" });
+  }
+
+  try {
+    const total = await Achat.count({
+      where: {
+        offre: vente,
+      },
+    });
+    console.log(`Total: ${total}`);
+    res.json({ total });
+  } catch (err) {
+    console.error("Erreur lors de la récupération du nombre d'achats:", err);
+  }
+});
 
 //export {router}
 export default AchatRouter;

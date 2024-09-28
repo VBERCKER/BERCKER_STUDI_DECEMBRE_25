@@ -58,7 +58,7 @@ SportRouter.get('/',(req,res)=>{
                 const sports = await Sport.findAll({
                   attributes: ['id', 'sport']
                 });
-                console.log(sports);
+                
                 res.json(sports);
               } catch (err) {
                 console.error('Erreur lors de la récupération des sports:', err);

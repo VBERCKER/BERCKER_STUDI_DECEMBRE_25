@@ -5,6 +5,7 @@ import {Textebtn, GridSport} from "../../composants/textbtn";
 import Float from "../../composants/float";
 import Footer from "../../composants/template/footer";
 import { useEffect,useRef } from "react";
+import BannerCookies from "../../composants/template/bannerCookies";
 
 function Home(){
    const newslettterref=useRef(); 
@@ -59,6 +60,7 @@ function Home(){
        <GridSport/>
       <Float/>
      <Footer/>
+     <BannerCookies/>
  
 
         </div>

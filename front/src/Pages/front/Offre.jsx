@@ -4,7 +4,7 @@ import React from "react";
 import OffreGrid from "../../composants/offregrid";
 
 import Footer from "../../composants/template/footer";
-
+import BannerCookies from "../../composants/template/bannerCookies";
 
 
 function Offrepage(){
@@ -16,6 +16,7 @@ function Offrepage(){
        
         <OffreGrid />
        <Footer/>
+       <BannerCookies/>
     </div>
       
     )}
