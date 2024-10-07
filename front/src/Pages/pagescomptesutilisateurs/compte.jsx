@@ -1,49 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Sidebar from "../../composants/template/sidebar";
 import { getCookie } from "../../composants/securite_cookies_token_auth_localstorage/cookies";
+import { UserProvider, UserContext } from "../../composants/informationsUser/UserContext.jsx";
 
+function Compte() {
+  const user = useContext(UserContext);
+  console.log(user.nom);
+  return (
+    <UserProvider>
+      <div  style={{marginTop : "2%"}}className="page">
+        <Sidebar
+          lienTItre2={"ebillet"}
+          lienTItre3={"paniervalider"}
+          lienTItre1={"utilisateur"}
+          lienmenuP={"/compte"}
+          menuP={"Menu principal"}
+          menuTitre1={"Mes informations utilisateur"}
+          menuTitre2={"Mes E-billets"}
+          menuTitre3={"Mon panier"}
+          titrem={"Mon compte"}
+          content={
+            <div style={{marginTop : "2%"}}className="container text-center">
+              <h1 >Bienvenue {user.prenom}</h1>
+              <p >Utiliser le menu de gauche pour naviguer. </p>
+            </div>
+          }
+        />
+      </div>
+    </UserProvider>
+  );
+}
 
-
-
-
-
-  function Compte (){
-
-   const cookie= getCookie('user')
-   const requestOptions = { method: 'GET', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*' }, redirect: "follow", referrerPolicy: "no-referrer" };
-   
-   const [user,setuser]=useState("")
- console.log(cookie)
-
-   useEffect(()=>{ 
-    
-    fetch(`http://localhost:3000/users/${cookie}`,requestOptions)
-  
-      .then((response)=>{
-        return response=response.json()
-      } )
-      .then((result)=>{const data =result
-        
-        setuser(data.prenom)
-        console.log(data)
-        
-
-        }
-    )
-      .catch(err=>console.log(err));
-  },[])
-  
-
-
-    return (<div className="page">
-        
-        <Sidebar  lienTItre2={"ebillet"} lienTItre3={"paniervalider"} lienTItre1={"utilisateur"} lienmenuP={"/compte"} menuP={"Menu principal"} menuTitre1={"Mes informations utilisateur"} menuTitre2={"Mes E-billets"}  menuTitre3={"Mon panier"}  titrem={"Mon compte"} content={  <div className="container text-center">
-    <h1>Bienvenue {user}</h1>
-    <p> Selectionnez une option dans le menu pour commencer. </p>
-     </div>} />
-
-      </div>)}
-
+const UserConsumer = () => {
+  const user = React.useContext(UserContext);
+  return <>{user}</>;
+};
 
 export default Compte;
 

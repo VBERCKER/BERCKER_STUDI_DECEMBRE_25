@@ -22,6 +22,7 @@ import Sucess from "./Pages/pagescomptesutilisateurs/sucess";
 import Cancel from "./Pages/pagescomptesutilisateurs/cancel"
 import Pwd from "./Pages/pagescomptesutilisateurs/pwdOublie"
 import Vente from "./Pages/admin/vente";
+import { UserProvider } from "./composants/informationsUser/UserContext";
 
 
 
@@ -45,7 +46,7 @@ function App(){
 
                                 { /*route protégées*/}
                                 
-                     <Route path="/compte" element={<RequireAuth><Compte/></RequireAuth>}>
+                     <Route path="/compte" element={<UserProvider><RequireAuth><Compte/></RequireAuth></UserProvider>}>
                          <Route path="utilisateur" element={<Utilisateur/>}/>
                         <Route path="ebillet" element={<Ebillet/>}/>
                         <Route path="paniervalider" element={<PanierValider/>}/>

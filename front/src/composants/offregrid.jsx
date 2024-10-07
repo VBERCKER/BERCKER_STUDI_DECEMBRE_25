@@ -66,18 +66,18 @@ const OffreGrid = () => {
 
   return (
     <div>
-      <h2 className="police-titre text-center">Billeteries</h2>
+      <h2 className="police-titre text-center border-bottom ">Billeteries</h2>
       
       <div className="sport">
       {offre.map((sportItem, sportIndex) => (
           <div className="sport-tit" key={sportIndex}>
-            <h3 className="police-titre display-6 text-body-emphasis lh-1 mb-3 text-pop-up-top sport-titre">
+            <h3 className="police-titre display-6  text-body-emphasis lh-1 mb-3 text-pop-up-top sport-titre">
               {sportItem.sport}
             </h3>
             
             <div className="container text-center">
             
-            <div className="row g-4 row-cols-1 row-cols-sm-1 row-cols-md-3">
+            <div className="row g-4 row-cols-1 row-cols-sm-1 row-cols-md-3 ">
             { sportItem.offres.map((offreItem, offreIndex) => (
                   <div className="col" key={offreIndex}>
                     <Cardoffre1
@@ -91,6 +91,7 @@ const OffreGrid = () => {
                   </div>
                 ))}
               </div>
+              <div className='border-bottom mt-5'></div>
             </div>
           </div>
         ))}

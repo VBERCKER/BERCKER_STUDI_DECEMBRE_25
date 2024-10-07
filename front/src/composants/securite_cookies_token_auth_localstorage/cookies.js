@@ -1,7 +1,7 @@
 /**
  * Récupère les données associées à un cookie
  * @param {string} name Nom du cookie à récupérer
- * @return {string|null} 
+ * @return {string|null} ,
  */
 function getCookie(name) {
     const cookies = document.cookie.split('; ')
@@ -26,5 +26,11 @@ function setCookie(name, value, days) {
     document.cookie = `${name}=${encodeURIComponent(value)}; expires=${date.toUTCString()};` 
 }
 
+function deleteCookie(name) {
+    const date = new Date(0); // Date passée
+    document.cookie = `${name}=; expires=${date.toUTCString()};`;
+}
 
-export {getCookie,setCookie}
+
+
+export {getCookie,setCookie,deleteCookie}

@@ -1,17 +1,10 @@
 
 import jwt from 'jsonwebtoken';
-import pkg from 'pg';
+import Utilisateur from "../models/utilisateurModels.js";
 
-const { Pool } = pkg;
 
-// Configuration de la connexion à la base de données
-const db = new Pool({
-    host: "localhost",
-    user: "postgres",
-    password: "valentin.6",
-    database: "JO24",
-    port: 5434,
-});
+
+
 
 // Middleware JWT ********************************************
 const extractBearer = authorization => {
@@ -31,29 +24,30 @@ export const verifyToken = (req, res, next) => {
         return res.status(401).json({ message: 'Token manquant ou invalide' });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET || "jesuis", (err, decodedToken) => {
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
         if (err) {
-            return res.status(401).json({ message: 'Mauvais Token !', error: err.message });
+          return res.status(401).json({ message: 'Mauvais Token !', error: err.message });
         }
-
-        const sql = "SELECT mail FROM utilisateur WHERE token = $1";
-        db.query(sql, [token], (err, data) => {
-            if (err) {
-                return res.status(500).json({ message: 'Erreur interne du serveur', error: err.message });
-            }
-
-            if (!data.rows.length) {
-                return res.status(401).json({ message: 'Token invalide' });
-            }
-
-            const user = data.rows[0];
-            if (user.mail !== decodedToken.mail) {
-                return res.status(401).json({ message: 'Token invalide' });
-            }
-
-            req.user = decodedToken;
-            next();
-        });
-    });
+    
+        try {
+          const user = await Utilisateur.findOne({ where: { token } });
+    
+          if (!user) {
+            return res.status(401).json({ message: 'Token invalide' });
+          }
+    
+          console.log(user);
+          if (user.mail !== decodedToken.mail) {
+            return res.status(401).json({ message: 'Token invalide' });
+          }
+    
+          req.user = decodedToken;
+          req.role = user.role;
+          next();
+        } catch (err) {
+          return res.status(500).json({ message: 'Erreur interne du serveur', error: err.message });
+        }
+      });
+    ;
 };
 //******************************************** */

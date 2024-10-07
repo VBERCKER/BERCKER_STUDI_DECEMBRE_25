@@ -1,14 +1,13 @@
 //express
 import express from "express";
-const app=express();
+const app = express();
 import bodyParser from "body-parser";
-import cors from "cors"; 
+import cors from "cors";
 import session from "express-session";
-
 
 /***************** Import de la database */
 
-import {sequelize }from "./config/connectionDb.js";
+import { sequelize } from "./config/connectionDb.js";
 
 import UtilisateurRouter from "./Routes/utilisateurRoute.js";
 import SportRouter from "./Routes/sportRoute.js";
@@ -20,125 +19,125 @@ import AchatRouter from "./Routes/achatRoute.js";
 import Utilisateur from "./models/utilisateurModels.js";
 import Sport from "./models/sportModels.js";
 import Offre from "./models/offreModels.js";
-// importation des données tables 
+// importation des données tables
 
 import utilisateurs from "./seeders/utilisateur.js";
 import sports from "./seeders/sport.js";
 import offres from "./seeders/offre.js";
 
-
-
-
 // Cors ******************************
-const whitelist = ['http://localhost:3000','http://localhost:5173',"https://accounts.google.com/","https://checkout.stripe.com/","https://bercker-jo-studi-dglq.vercel.app" /** other domains if any */ ]
- const corsOptions = { 
-    credentials: true, 
-    origin: function(origin, callback) { 
-        if (whitelist.indexOf(origin) !== -1 ||!origin) 
-        { callback(null, true) 
-        } else {
-             callback(new Error('Not allowed by CORS et oui ')) 
-             
-            } 
-        } 
-     } 
+const whitelist = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://accounts.google.com/",
+  "https://checkout.stripe.com/",
+  "https://bercker-jo-studi-dglq.vercel.app" /** other domains if any */,
+];
+const corsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS et oui "));
+    }
+  },
+};
 
-    
-   
- //app.use(express.urlencoded({limit:'30mb'}))    /// non non 
-app.use(express.json())
-app.use(bodyParser.json({verify:function(req,res,buf){req.rowBody =buf}}))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:false}))
-app.use(cors(corsOptions))
+//app.use(express.urlencoded({limit:'30mb'}))    /// non non
+app.use(express.json());
+app.use(
+  bodyParser.json({
+    verify: function (req, res, buf) {
+      req.rowBody = buf;
+    },
+  })
+);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors(corsOptions));
 app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy", "default-src 'self'; style-src 'self' 'unsafe-inline';");
-    next();
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; style-src 'self' 'unsafe-inline';"
+  );
+  next();
 });
 
-
 //session ********************************************
-app.use(session({
-    secret: process.env.SESSION_SECRET || 'default_secret', // Utilisez une variable d'environnement pour le secret
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Assurez-vous que 'secure' est false si vous n'utilisez pas HTTPS
-  }));
-
+    cookie: { secure: false }, // Assurez-vous que 'secure' est false si vous n'utilisez pas HTTPS
+  })
+);
 
 //******************************* */
-app.get("/",(req,res)=>{
-    res.send("hello")
-})
+app.get("/", (req, res) => {
+  res.send("hello");
+});
 
 //route utilisateur ****************************************
 
-app.use("/users",UtilisateurRouter);
+app.use("/users", UtilisateurRouter);
 
 /*************Pages offres billeteries *********************** */
 // voir les offres / sports pages offres/billeteries **********************************
 
-app.use("/sport",SportRouter)
+app.use("/sport", SportRouter);
 
 // ajouter une offres, voir les ventes par offres, filtrer une ventes, filter les offres, modifier une offre, selectionner une offre  ***************************************************
-app.use("/offre",OffreRouter)
+app.use("/offre", OffreRouter);
 
 //Achat de billets *********************************************
-app.use("/achat",AchatRouter)
-
+app.use("/achat", AchatRouter);
 
 // Fonction pour insérer les données si elles n'existent pas
 const insertDataIfNotExists = async () => {
-    for (const utilisateur of utilisateurs) {
-      await Utilisateur.findOrCreate({
-        where: { mail: utilisateur.mail }, // Utilisez une condition unique
-        defaults: utilisateur
-      });
-    }
-  
-    for (const sport of sports) {
-      await Sport.findOrCreate({
-        where: { sport: sport.sport }, // Utilisez une condition unique
-        defaults: sport
-      });
-    }
-  
-    for (const offre of offres) {
-      await Offre.findOrCreate({
-       where: {
-             offre: offre.offre,
-             sport_id: offre.sport_id}, 
-        defaults: offre
-      });
-    }
-  };
+  for (const utilisateur of utilisateurs) {
+    await Utilisateur.findOrCreate({
+      where: { mail: utilisateur.mail }, 
+      defaults: utilisateur,
+    });
+  }
+
+  for (const sport of sports) {
+    await Sport.findOrCreate({
+      where: { sport: sport.sport }, 
+      defaults: sport,
+    });
+  }
+
+  for (const offre of offres) {
+    await Offre.findOrCreate({
+      where: {
+        offre: offre.offre,
+        sport_id: offre.sport_id,
+      },
+      defaults: offre,
+    });
+  }
+};
 
 /*******Satrt Serveur avec test database */
 const PORT = process.env.SERVER_PORT || 3000;
-sequelize.authenticate()
+sequelize
+  .authenticate()
   .then(() => {
     return sequelize.sync({ alter: true });
   })
-    
- /* .then(() => {
-        // Insérer des valeurs dans la table Utilisateur
-        return Utilisateur.bulkCreate(utilisateurs);
-    })
-    .then(() => {
-        // Insérer des valeurs dans la table Sport
-        return Sport.bulkCreate(sports);
-    })
-   .then(() => {
-        // Insérer des valeurs dans la table Offre
-        return Offre.bulkCreate(offres);
-    })
-   */
-    .then(() => {
-        return insertDataIfNotExists();
-      })
-    .then(()=>{
-            app.listen(process.env.SERVER_PORT || 3000,()=>{ console.log(`Server is running on port ${PORT}`)})
-    })
-    .catch(err=>{console.log("Connection failed",err)})
+  .then(() => {
+    return insertDataIfNotExists();
+  })
+  .then(() => {
+    app.listen(process.env.SERVER_PORT || 3000, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("Connection failed", err);
+  });
 
-
+  export default app;

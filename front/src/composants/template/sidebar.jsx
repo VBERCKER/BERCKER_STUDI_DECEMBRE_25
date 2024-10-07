@@ -16,7 +16,7 @@ function Sidebar(props){
   return(
     <div className='menu'>
      
-<div className=" burger-menu w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style={{width:"200px"}} id="mySidebar">
+<div className=" burger-menu w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style={{width:"200px", height:"50%"}} id="mySidebar">
   <button className=" w3-bar-item w3-button w3-large w3-hide-large" onClick={w3_close}>Close &times;</button>
   <h3 className="w3-bar-item">Menu</h3>
   <nav>
@@ -27,7 +27,6 @@ function Sidebar(props){
  <div style={{margin : "30px" ,fontSize:"20px"}}><Link to={props.lienTItre3}>{props.menuTitre3}</Link></div>
  <div style={{margin : "30px" ,fontSize:"20px"}}><Link to={props.lienTItre4}>{props.menuTitre4}</Link></div>
  
-
 
   </nav>
  
@@ -49,11 +48,12 @@ function Sidebar(props){
 <div className="w3-container contente-menu ">
 <Outlet/>
 
+<Footer/>
 
 </div>
    
 </div>
-<Footer/>
+
     </div> 
   )
 }

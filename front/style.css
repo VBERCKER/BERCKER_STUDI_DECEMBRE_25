@@ -70,7 +70,7 @@ body {
 }
 /*les sports pages offres*/
 .sport {
-  margin-top: 90px;
+  margin-top: 80px;
 }
 .sport-titre {
   margin-top: 30px;
@@ -79,6 +79,7 @@ body {
 }
 .sport-tit {
   margin-top: 100px;
+  
 }
 
 /*Page PANIER */
@@ -782,7 +783,7 @@ svg {
 
 .login {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin-bottom: 120px;
   margin-top: 120px;
 }
@@ -1353,6 +1354,7 @@ form .create-account:hover {
 }
 .menu {
   margin-top: -10px;
+  
 }
 
 /*animation au scroll*/
@@ -1587,4 +1589,36 @@ form .create-account:hover {
 
   color: #ffd700;
   text-decoration: underline;
+}
+
+/********************* SuppUtilisateur *********************/
+.SuppUtilisateur{
+  display: flex;
+  justify-content: center;
+}
+.suppBox{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  background-color: white;
+  border: 1px solid #333;
+  z-index: 0;
+}
+
+/******video Home *********/
+
+.video{
+  margin-top: 150px;
+}
+.titreVideo{
+  font-size: 50px;
+  color: black;
+  text-align: center;
+}
+.vidoeVideo{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }

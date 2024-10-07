@@ -7,6 +7,7 @@ import Footer from "../../composants/template/footer";
 import { useEffect,useRef } from "react";
 import BannerCookies from "../../composants/template/bannerCookies";
 
+
 function Home(){
    const newslettterref=useRef(); 
    
@@ -59,6 +60,12 @@ function Home(){
        
        <GridSport/>
       <Float/>
+    
+      <div className="video">
+      <h3 className="titreVideo">Tutoriel du site</h3>
+      <div className="vidoeVideo">
+      <iframe width="760" height="515" src="https://www.youtube.com/embed/AsbhO2ceW8I?si=WBe1BzhDEB5EGqcc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div></div>
      <Footer/>
      <BannerCookies/>
  

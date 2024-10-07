@@ -3,6 +3,7 @@ import React from "react";
 function OfferCard(props){
     return (
         <div>
+            
              <div className="myCard">
         <div className="innerCard">
             <div className="frontSide">

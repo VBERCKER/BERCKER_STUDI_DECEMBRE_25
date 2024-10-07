@@ -2,7 +2,8 @@ import  React from 'react';
 import Boutton from "../bouton";
 import { NavLink,Link } from 'react-router-dom';
 import { useAuth } from '../securite_cookies_token_auth_localstorage/auth'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { deleteCookie } from '../securite_cookies_token_auth_localstorage/cookies';
 
 
 
@@ -17,6 +18,9 @@ function Nav(){
     auth.logout()
     localStorage.removeItem('token')
     localStorage.removeItem('admin')
+    localStorage.removeItem('accepter-cookie')
+    deleteCookie('user')
+    deleteCookie('admin')
     navigate('/')
   }
   

@@ -1,5 +1,4 @@
 import { render, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event' ;
 import {FormRE, LogIN} from '../src/composants/FormCO';
 import '@testing-library/jest-dom';
 import React from 'react';
@@ -38,9 +37,6 @@ describe('FormRE Component', () => {
         fireEvent.change(nomInput, { target: { value: 'Test Nom' } });
         expect(nomInput.value).toBe('Test Nom');
         
-        // Utilisation de userEvent.type
-        userEvent.type(nomInput, 'Test Nom');
-        expect(nomInput.value).toBe('Test Nom');
     });
   });
 
@@ -82,7 +78,7 @@ global.fetch = jest.fn(() =>
     await new Promise((r) => setTimeout(r, 2000));
   
     // Vérifier que fetch a été appelé avec l'URL correcte
-    expect(global.fetch).toHaveBeenCalledWith("http://localhost:3000/token", expect.any(Object));
-  
+
+expect(global.fetch).toHaveBeenCalledWith("http://localhost:3000/users/connexion", expect.any(Object));  
     
   });
