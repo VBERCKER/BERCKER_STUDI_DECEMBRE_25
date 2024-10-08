@@ -21,7 +21,7 @@ const db = async () => {
     console.error('connection sequelize échoué:', error);
   }
 };
-//sequelize.sync(err=>{console.log('Data Base sync err:',err)} )
+
 
 db();
 
