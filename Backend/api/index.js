@@ -122,7 +122,7 @@ const insertDataIfNotExists = async () => {
 };
 
 /*******Satrt Serveur avec test database */
-const PORT = process.env.SERVER_PORT || PORT || 3000;
+const PORTS = process.env.SERVER_PORT || PORT || 3000;
 sequelize
   .authenticate()
   .then(() => {
@@ -132,8 +132,8 @@ sequelize
     return insertDataIfNotExists();
   })
   .then(() => {
-    app.listen(process.env.SERVER_PORT || 3000 || PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+    app.listen(process.env.SERVER_PORT || 3000 || PORTS, () => {
+      console.log(`Server is running on port ${PORTS}`);
     });
   })
   .catch((err) => {
