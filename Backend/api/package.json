@@ -6,7 +6,6 @@
   "type": "module",
   "scripts": {
     "start": "nodemon --exec babel-node index.js",
-    
     "test": "jest",
     "build": "babel src -d dist"
   },
@@ -15,7 +14,6 @@
   "license": "ISC",
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.11",
-    "@react-email/components": "0.0.19",
     "@react-email/img": "0.0.8",
     "@sequelize/mysql": "^7.0.0-alpha.41",
     "@stripe/react-stripe-js": "^2.7.1",
