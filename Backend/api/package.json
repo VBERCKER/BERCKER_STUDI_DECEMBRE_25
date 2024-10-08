@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "jest",
-    "build": "npm build"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
