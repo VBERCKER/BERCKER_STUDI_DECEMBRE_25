@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon --exec babel-node index.js",
-    "dev": "email dev",
+    
     "test": "jest",
     "build": "babel src -d dist"
   },
