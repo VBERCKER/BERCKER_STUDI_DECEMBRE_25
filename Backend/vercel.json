@@ -5,14 +5,14 @@
       "src": "Backend/api/index.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["dist/**"]
+        "includeFiles": ["Backend/api/dist/**"]
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/Backend/api/index.js"
+      "dest": "Backend/api/index.js"
     }
   ]
 }
