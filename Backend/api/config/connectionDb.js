@@ -11,7 +11,6 @@ export const sequelize = new Sequelize({
   port: process.env.PG_PORT,
   dialect: 'postgres', 
   protocol: 'postgres',
-  
 });
 
 const db = async () => {
