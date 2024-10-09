@@ -16,6 +16,7 @@ import Boutton from "./bouton";
 import { useEffect } from "react";
 
 function FormRE() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [signin, setsingin] = useState({
     nom: "",
     prenom: "",
@@ -111,7 +112,7 @@ function FormRE() {
       setconfirmpwd("Les mots de passe ne sont pas identiques");
     else {
       try {
-        await axios.post("http://localhost:3000/users/add", signin);
+        await axios.post(`${apiUrl}/users/add`, signin);
 
         navigate("/connexion");
         setsingin("");
@@ -199,6 +200,7 @@ function FormRE() {
 }
 
 function LogIN() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [login, setlogin] = useState({
     username: "",
     password: "",
@@ -235,7 +237,7 @@ function LogIN() {
       };
 
       const result = await fetch(
-        "http://localhost:3000/users/connexion",
+        `${apiUrl}/users/connexion`,
         requestOptions
       );
       const response = await result.json();
@@ -286,7 +288,7 @@ function LogIN() {
     };
 
      try {
-      const result = await fetch("http://localhost:3000/users/token", requestOptions);
+      const result = await fetch(`${apiUrl}/users/token`, requestOptions);
       const response = await result.json();
       console.log(response);
 

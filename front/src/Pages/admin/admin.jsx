@@ -3,6 +3,7 @@ import Buton from "../../composants/bouton";
 import Sidebar from "../../composants/template/sidebar";
 
 export default function Admin() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const requestOptions = {
     method: "GET",
     mode: "cors",
@@ -21,7 +22,7 @@ export default function Admin() {
   const [filter, setfilter] = useState([]);
 
   function sportall() {
-    fetch(`http://localhost:3000/sport/offreadminall`, requestOptions)
+    fetch(`${apiUrl}/sport/offreadminall`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setSport(result);
@@ -44,7 +45,7 @@ export default function Admin() {
   async function handleClick(e) {
     e.preventDefault();
     await fetch(
-      `http://localhost:3000/offre/offreadminfilter/${sportfilter}`,
+      `${apiUrl}/offre/offreadminfilter/${sportfilter}`,
       requestOptions
     )
     

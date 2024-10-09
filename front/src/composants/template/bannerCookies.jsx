@@ -17,7 +17,7 @@ function BannerCookies() {
   }
 
   if (!showBanner) {
-    return null; // Ne rend rien si la bannière ne doit pas être affichée
+    return null; 
   }
 
   return (

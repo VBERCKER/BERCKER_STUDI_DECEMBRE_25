@@ -7,7 +7,7 @@ import Buton from '../../composants/bouton'
 
 export default function Update () {
 const requestOptions = { method: 'GET', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*' }, redirect: "follow", referrerPolicy: "no-referrer" };
-
+const apiUrl = import.meta.env.VITE_API_URL;
    
 const [sport, setsport]=useState({
     sport : "",
@@ -27,7 +27,7 @@ function handleSport(e){
 
 function handleClickSport(e){
     e.preventDefault()
-    fetch(`http://localhost:3000/offre/offreselection/${sport}`,requestOptions)
+    fetch(`${apiUrl}/offre/offreselection/${sport}`,requestOptions)
   
       .then((response)=>{
         return response=response.json()
@@ -83,7 +83,7 @@ function handleClickSport(e){
         
         console.log(update.Place_offre)
     try{
-       const result = await fetch(`http://localhost:3000/offre/update/${sport.id}`,requestOptions1)
+       const result = await fetch(`${apiUrl}/offre/update/${sport.id}`,requestOptions1)
        console.log(result)
        console.log(update)
         alert("L'offre est modifiée !")

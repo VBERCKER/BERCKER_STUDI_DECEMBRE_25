@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 import Boutton from "../../composants/bouton";
 
 function Pwd(){
-
+    const apiUrl = import.meta.env.VITE_API_URL;
 const [email, setemail]=useState({email:""});
 const [err, seterr]=useState("");
 
@@ -17,7 +17,7 @@ async function handleClick(e){
     console.log(email)
     try{ const requestOptions = { method: 'POST', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*' }, redirect: "follow", referrerPolicy: "no-referrer", body: JSON.stringify(email) };
         
-    const result= await fetch('http://localhost:3000/users/pwd',requestOptions); 
+    const result= await fetch(`${apiUrl}/users/pwd`,requestOptions); 
     const response = await result.json();
     console.log(result); 
 

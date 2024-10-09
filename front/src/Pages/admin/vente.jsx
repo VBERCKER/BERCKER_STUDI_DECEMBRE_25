@@ -10,11 +10,11 @@ export default function Vente () {
   const [offre,setOffre]=useState([])
   const [sportfilter,setsportfilter]=useState([])
   const [filter,setfilter]=useState([])
-
+  const apiUrl = import.meta.env.VITE_API_URL;
  
 
 async function sportall(){
-   await fetch(`http://localhost:3000/achat/vente`,requestOptions)
+   await fetch(`${apiUrl}/achat/vente`,requestOptions)
   
   .then((response)=>{
     return response=response.json()
@@ -48,7 +48,7 @@ function handleSport(e){
             const venteAdmin = {vente:sportfilter}
             const requestOptions1 = { method: 'POST', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*' }, redirect: "follow", referrerPolicy: "no-referrer", body: JSON.stringify(venteAdmin) };
             
-              const response = await fetch(`http://localhost:3000/achat/venteFilter`, requestOptions1);
+              const response = await fetch(`${apiUrl}/achat/venteFilter`, requestOptions1);
               const result = await response.json();
              console.log(result)
              

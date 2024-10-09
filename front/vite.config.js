@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite';
-import React from 'react';// ou react, selon votre projet
+import React from 'react';
+import envCompatible from 'vite-plugin-env-compatible';
+
 
 export default defineConfig({
-  plugins: [React],
+  plugins: [React,  envCompatible()],
   server: {
     fs: {
       allow: [

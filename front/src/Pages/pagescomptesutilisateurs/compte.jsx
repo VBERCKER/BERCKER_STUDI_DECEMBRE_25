@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Sidebar from "../../composants/template/sidebar";
-import { getCookie } from "../../composants/securite_cookies_token_auth_localstorage/cookies";
+
 import { UserProvider, UserContext } from "../../composants/informationsUser/UserContext.jsx";
 
 function Compte() {

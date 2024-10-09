@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Cardoffre1} from './card'
 
 const OffreGrid = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [sport, setSport] = useState([]);
   const [offre, setOffre] = useState([]);
   const [error, setError] = useState(null);
@@ -17,7 +18,8 @@ const OffreGrid = () => {
 
   const bdSport = async () => {
     try {
-      const response = await fetch('http://localhost:3000/sport', requestOptions);
+      console.log(apiUrl)
+      const response = await fetch(`${apiUrl}/sport`, requestOptions);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -32,7 +34,7 @@ const OffreGrid = () => {
 
   const bdoffre = async () => {
     try {
-      const response = await fetch('http://localhost:3000/sport/offre', requestOptions);
+      const response = await fetch(`${apiUrl}/sport/offre`, requestOptions);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

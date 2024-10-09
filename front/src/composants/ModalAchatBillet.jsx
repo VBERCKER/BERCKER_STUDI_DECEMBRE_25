@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Boutton from './bouton';
 import Modal from 'react-bootstrap/Modal';
 
 function ModalAchatBillet(props) {
@@ -16,7 +15,7 @@ function ModalAchatBillet(props) {
     if (show) {
       const timer = setTimeout(() => {
         setShow(false);
-      }, 2000); // 2000 millisecondes = 2 secondes
+      }, 1000); // 2000 millisecondes = 2 secondes
 
       return () => clearTimeout(timer); 
     }

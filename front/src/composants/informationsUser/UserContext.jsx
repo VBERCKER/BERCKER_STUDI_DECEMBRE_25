@@ -5,6 +5,7 @@ import { getCookie } from "../../composants/securite_cookies_token_auth_localsto
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [user, setUser] = useState({
     nom: "",
     prenom: "",
@@ -31,7 +32,7 @@ export const UserProvider = ({ children }) => {
         referrerPolicy: "no-referrer" 
       };
 
-      fetch(`http://localhost:3000/users/${cookie}`, requestOptions)
+      fetch(`${apiUrl}/users/${cookie}`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw new Error('Network response was not ok');

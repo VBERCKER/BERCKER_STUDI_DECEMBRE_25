@@ -11,7 +11,6 @@ import Ebillet from "./Pages/pagescomptesutilisateurs/ebillet";
 import PanierFront from "./Pages/front/Panier";
 import Admin from "./Pages/admin/admin"
 import Ajouter from "./Pages/admin/Ajouter";
-import OffreVisuel from "./Pages/admin/offresVisu";
 import Supprimer from "./Pages/admin/supprimer";
 import Update from "./Pages/admin/Update";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -57,7 +56,6 @@ function App(){
 
                     <Route path="/admin" element={ <PrivateRoute><Admin/></PrivateRoute>}>
                     <Route path="ajouter" element={<Ajouter/>}/>
-                    <Route path="visuel" element={<OffreVisuel/>}/>
                     <Route path="supprimer" element={<Supprimer/>}/>
                     <Route path="modifier" element={<Update/>}/>
                     <Route path="vente" element={<Vente/>}/>

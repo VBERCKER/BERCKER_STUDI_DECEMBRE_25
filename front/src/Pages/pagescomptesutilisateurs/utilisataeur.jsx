@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Utilisateur() {
   const user = useContext(UserContext);
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [pwd, setpwd] = useState({
     pwd: "",
     pwd2: "",
@@ -49,7 +49,7 @@ export default function Utilisateur() {
         try {
           const cookie = getCookie("user");
           const result = fetch(
-            `http://localhost:3000/users/pwd/${cookie}`,
+            `${apiUrl}/users/pwd/${cookie}`,
             requestOptions
           );
           console.log(result);
@@ -77,7 +77,7 @@ export default function Utilisateur() {
       try {
         const cookie = getCookie("user");
         const result = fetch(
-          `http://localhost:3000/users/utilisateur/${cookie}`,
+          `${apiUrl}/users/utilisateur/${cookie}`,
           requestOptions1
         );
         console.log(result);
@@ -114,7 +114,7 @@ export default function Utilisateur() {
       
       const cookie = getCookie("user");
       const result = fetch(
-        `http://localhost:3000/users/supp/${cookie}`,
+        `${apiUrl}/users/supp/${cookie}`,
         requestOptions
       );
       console.log(requestOptions);
