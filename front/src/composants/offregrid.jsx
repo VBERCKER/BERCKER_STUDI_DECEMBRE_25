@@ -35,6 +35,8 @@ const OffreGrid = () => {
   const bdoffre = async () => {
     try {
       const response = await fetch(`${apiUrl}/sport/offre`, requestOptions);
+      console.logt("response:",response)
+      console.log("URL:",`${apiUrl}/sport/offre`)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
