@@ -1637,7 +1637,7 @@ form .create-account:hover {
 /* Styles pour l'image de fond sous une certaine largeur d'écran */
 @media (max-width: 991px) {
   .img-container {
-    background-image: url('/Users/valentinbercker/Downloads/BERCKER_JO_STUDI-main-5/BERCKER_STUDI_DECEMBRE_25/front/public/static/images/1200x680_sc_f1yhtk6wcamaltg.jpg');
+    background-image: url('/static/images/1200x680_sc_f1yhtk6wcamaltg.jpg');
     background-size: cover;
     background-position: center;
     
