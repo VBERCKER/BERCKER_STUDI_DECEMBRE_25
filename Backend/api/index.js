@@ -31,7 +31,8 @@ const whitelist = [
   "http://localhost:5173",
   "https://accounts.google.com/",
   "https://checkout.stripe.com/",
-  "https://bercker-jo-studi-dglq.vercel.app" /** other domains if any */,
+  "https://bercker-jo-studi-dglq.vercel.app",
+  "https://bercker-studi-decembre-25-slgc.vercel.app"/** other domains if any */,
 ];
 const corsOptions = {
   credentials: true,
