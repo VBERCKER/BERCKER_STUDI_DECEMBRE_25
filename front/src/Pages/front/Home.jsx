@@ -26,7 +26,7 @@ function Home(){
     return(
         <div>
    
-        <div className="headercharg titre-header">
+        <div className=" titreMin headercharg titre-header">
         <span className="police letter">Jeux</span>
         <span className="police letter">Olympique</span>
         <span className="police letter">Paris </span>

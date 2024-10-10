@@ -1622,3 +1622,67 @@ form .create-account:hover {
   justify-content: center;
   margin-top: 50px;
 }
+
+.img-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.img-container img {
+  width: 100%;
+  height: auto;
+}
+
+/* Styles pour l'image de fond sous une certaine largeur d'écran */
+@media (max-width: 991px) {
+  .img-container {
+    background-image: url('/Users/valentinbercker/Downloads/BERCKER_JO_STUDI-main-5/BERCKER_STUDI_DECEMBRE_25/front/public/static/images/1200x680_sc_f1yhtk6wcamaltg.jpg');
+    background-size: cover;
+    background-position: center;
+    
+  
+  }
+
+  .img-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Filigrane noir avec 50% d'opacité */
+    z-index: 1;
+  }
+
+  .imgMin {
+    display: none;
+  }
+.headerMin{
+  display: block;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+}
+.titreMin{
+  margin-bottom: 150px;
+}
+
+  .text {
+    font-size: 10px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    z-index: 2; /* Assurez-vous que le texte est au-dessus du filigrane */
+  }
+  .bouton{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+}

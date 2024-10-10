@@ -29,9 +29,7 @@ import offres from "./seeders/offre.js";
 const whitelist = [
   "http://localhost:3000",
   "http://localhost:5173",
-  "https://accounts.google.com/",
   "https://checkout.stripe.com/",
-  "https://bercker-jo-studi-dglq.vercel.app",
   "https://bercker-studi-decembre-25-slgc.vercel.app"/** other domains if any */,
 ];
 const corsOptions = {
