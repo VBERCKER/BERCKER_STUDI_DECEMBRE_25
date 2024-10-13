@@ -51,16 +51,21 @@ export async function createCheckoutSession(req, res) {
       quantity: product.quantity,
     }));
 
+  
     const session = await stripeClient.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
       success_url: `${req.headers.origin}/compte/sucess?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/compte/cancel`,
-      //customer: customer.id,
       customer_email: user.mail,
+      metadata: {
+        customer_name: user.name,
+        customer_email: user.mail,
+        product_details: product.map(p => `${p.offre} - ${p.sport}`).join(', '),
+      },
     });
-
+ 
     res.json({ id: session.id });
   } catch (error) {
     console.error(
