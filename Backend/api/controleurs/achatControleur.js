@@ -55,8 +55,8 @@ export async function createCheckoutSession(req, res) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${process.env.URL_FRONT}/compte/sucess?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.URL_FRONT}/compte/cancel`,
+      success_url: `${req.headers.origin}/compte/sucess?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin}/compte/cancel`,
       //customer: customer.id,
       customer_email: user.mail,
     });
