@@ -55,7 +55,7 @@ export async function createCheckoutSession(req, res) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${req.headers.origin}/compte/sucess?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: "https://bercker-studi-decembre-25-slgc.vercel.app",
       cancel_url: `${req.headers.origin}/compte/cancel`,
       //customer: customer.id,
       customer_email: user.mail,
