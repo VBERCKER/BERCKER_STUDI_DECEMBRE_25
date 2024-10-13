@@ -14,7 +14,6 @@
     "@headlessui/react": "^1.7.18",
     "@headlessui/vue": "^1.7.19",
     "@stripe/react-stripe-js": "^2.7.1",
-    "@stripe/stripe-js": "^3.4.0",
     "@stripe/stripe-react-native": "^0.37.3",
     "@testing-library/react": "^15.0.7",
     "animate.css": "^4.1.1",

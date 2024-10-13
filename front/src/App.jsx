@@ -25,7 +25,9 @@ import { UserProvider } from "./composants/informationsUser/UserContext";
 
 
 
- 
+
+
+
 
 function App(){
    
@@ -44,7 +46,7 @@ function App(){
                 <Route path="/pwd" element={<Pwd/>}/>
 
                                 { /*route protégées*/}
-                                
+                              
                      <Route path="/compte" element={<UserProvider><RequireAuth><Compte/></RequireAuth></UserProvider>}>
                          <Route path="utilisateur" element={<Utilisateur/>}/>
                         <Route path="ebillet" element={<Ebillet/>}/>
@@ -61,7 +63,7 @@ function App(){
                     <Route path="vente" element={<Vente/>}/>
                     
                     </Route>
-
+                   
                                  { /*test et autre*/}
                
                 <Route path="*" element ={<h1>Page iouvable !</h1>}/>
