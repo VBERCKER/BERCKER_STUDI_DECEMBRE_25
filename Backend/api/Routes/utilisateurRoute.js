@@ -1,6 +1,7 @@
 import express from "express";
 import { verifyToken } from "../midleware/token.js";
 import { verifyDroitToken } from "../midleware/verifierDroit.js";
+import {logInLimiter,generalLimiter,registerLimiter} from "../midleware/limiter.js";
 
 let UtilisateurRouter = express.Router();
 
@@ -29,7 +30,7 @@ UtilisateurRouter.get("/test", test);
 // recuperer les infos utilisateurs
 UtilisateurRouter.get("/:id", user);
 //enregistrer un utilisateur
-UtilisateurRouter.post("/add", register);
+UtilisateurRouter.post("/add", registerLimiter,register);
 
 //oublie mots de pass
 
@@ -53,7 +54,7 @@ UtilisateurRouter.delete("/suppTrash/:id", verifyDroitToken,suppTrash);
 UtilisateurRouter.post("/token", verifyToken, connexionToken);
 
 //connexion utilisateur
-UtilisateurRouter.post("/connexion", connexion);
+UtilisateurRouter.post("/connexion",logInLimiter, connexion);
 
 // acces refusé
 UtilisateurRouter.get("/nonautorisation", nonautorisation);

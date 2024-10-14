@@ -25,6 +25,24 @@ import utilisateurs from "./seeders/utilisateur.js";
 import sports from "./seeders/sport.js";
 import offres from "./seeders/offre.js";
 
+/********import le limiter **************** */
+import { generalLimiter } from "./midleware/limiter.js";
+
+/****** Helmet ******************************* */ 
+import helmet from "helmet";
+
+// Helmet
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "script-src": ["'self'", "example.com"],// les police de caractere et les script//
+      },
+    },
+  }),
+);
+
+
 // Cors ******************************
 const whitelist = [
   "http://localhost:3000",
@@ -35,7 +53,7 @@ const whitelist = [
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
+    if (whitelist.indexOf(origin) !== -1 ) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS et oui "));
@@ -72,6 +90,8 @@ app.use(
     cookie: { secure: false }, // Assurez-vous que 'secure' est false si vous n'utilisez pas HTTPS
   })
 );
+/*******use generle limiter */
+app.use(generalLimiter);
 
 //******************************* */
 app.get("/", (req, res) => {

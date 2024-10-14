@@ -24,7 +24,7 @@ export const verifyToken = (req, res, next) => {
         return res.status(401).json({ message: 'Token manquant ou invalide' });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+    jwt.verify(token, process.env.JWT_SECRET_PUBLIC, async (err, decodedToken) => {
         if (err) {
           return res.status(401).json({ message: 'Mauvais Token !', error: err.message });
         }

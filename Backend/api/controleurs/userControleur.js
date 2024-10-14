@@ -271,8 +271,8 @@ export async function connexion(req, res,next) {
             id: user.id,
             mail: user.mail,
           },
-          process.env.JWT_SECRET,
-          { expiresIn: "2h" }
+          process.env.JWT_SECRET_PRIVATE,
+          { expiresIn: "2h" , algorithm: "RS256"}
         );
 
         // Mise à jour du token dans la base de données avec Sequelize
