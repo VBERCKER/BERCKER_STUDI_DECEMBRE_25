@@ -1,10 +1,19 @@
 
 import jwt from 'jsonwebtoken';
 import Utilisateur from "../models/utilisateurModels.js";
+import fs from 'fs'; 
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+/*******fs import */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
+/**** cles  */
 
-
+const publicKEY = fs.readFileSync(path.resolve(__dirname, '../.certs/public.key'), 'utf8');
 
 // Middleware JWT ********************************************
 const extractBearer = authorization => {
@@ -24,7 +33,7 @@ export const verifyDroitToken = (req, res, next) => {
         return res.status(401).json({ message: 'Token manquant ou invalide' });
     }
     if (req.body.role === false) {
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+    jwt.verify(token, publicKEY, async (err, decodedToken) => {
         if (err) {
           return res.status(401).json({ message: 'Mauvais Token !', error: err.message });
         }
@@ -49,7 +58,7 @@ export const verifyDroitToken = (req, res, next) => {
         }
       });
     }else if (req.body.role === true) {
-      jwt.verify(token, process.env.JWT_SECRET_ADMIN, async (err, decodedToken) => {
+      jwt.verify(token, publicKEY, async (err, decodedToken) => {
         if (err) {
           return res.status(401).json({ message: 'Mauvais Token !', error: err.message });
         }

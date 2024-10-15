@@ -1,7 +1,19 @@
 
 import jwt from 'jsonwebtoken';
 import Utilisateur from "../models/utilisateurModels.js";
+import fs from 'fs'; 
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
+/*******fs import */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
+/**** cles  */
+const privateKEY = fs.readFileSync(path.resolve(__dirname, '../.certs/private.key'), 'utf8');
+const publicKEY = fs.readFileSync(path.resolve(__dirname, '../.certs/public.key'), 'utf8');
 
 
 
@@ -24,7 +36,7 @@ export const verifyToken = (req, res, next) => {
         return res.status(401).json({ message: 'Token manquant ou invalide' });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET_PUBLIC, async (err, decodedToken) => {
+    jwt.verify(token, publicKEY, async (err, decodedToken) => {
         if (err) {
           return res.status(401).json({ message: 'Mauvais Token !', error: err.message });
         }

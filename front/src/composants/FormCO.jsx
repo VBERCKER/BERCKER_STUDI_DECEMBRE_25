@@ -14,7 +14,7 @@ import { setCookie } from "./securite_cookies_token_auth_localstorage/cookies";
 import { accountService } from "./securite_cookies_token_auth_localstorage/servicetoken";
 import Boutton from "./bouton";
 import { useEffect } from "react";
-import fs from "fs";
+
 
 function FormRE() {
   const apiUrl = import.meta.env.VITE_API_URL;

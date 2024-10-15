@@ -5,6 +5,20 @@ import { verifyToken } from "../midleware/token.js";
 import env from "dotenv";
 env.config();
 
+import fs from 'fs'; 
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+/*******fs import */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
+/**** cles  */
+const privateKey = fs.readFileSync(path.resolve(__dirname, '../.certs/private.key'), 'utf8');
+const publicKEY = fs.readFileSync(path.resolve(__dirname, '../.certs/public.key'), 'utf8');
+
 //import passport from "passport";
 import passport from "../midleware/passport.js";
 import jwt from "jsonwebtoken";
@@ -271,7 +285,7 @@ export async function connexion(req, res,next) {
             id: user.id,
             mail: user.mail,
           },
-          process.env.JWT_SECRET_PRIVATE,
+          privateKey,
           { expiresIn: "2h" , algorithm: "RS256"}
         );
 
@@ -289,7 +303,7 @@ export async function connexion(req, res,next) {
           "Erreur lors de la génération du jeton ou de la mise à jour de la base de données:",
           err
         );
-        res.status(500).json({ message: "Erreur interne du serveur" });
+        res.status(500).json({ message: "Erreur interne du serveur " });
       }
     });
   })(req, res, next);

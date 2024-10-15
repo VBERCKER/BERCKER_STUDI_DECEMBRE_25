@@ -50,7 +50,7 @@ import utilisateurs from '../seeders/utilisateur.js';
     allowNull: false,
   },
   token: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
 createdAt: {

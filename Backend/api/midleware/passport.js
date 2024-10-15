@@ -11,7 +11,7 @@ import  Utilisateur  from '../models/utilisateurModels.js';
 
 
 // Clé secrète pour JWT
-const JWT_SECRET = process.env.JWT_SECRET || 'votre_clé_secrète';
+
 
 // Middleware passport
  export default passport.use("local", new LocalStrategy(async (username, password, cb) => {
