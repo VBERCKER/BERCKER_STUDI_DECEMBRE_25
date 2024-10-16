@@ -26,7 +26,7 @@ Cette application permet de faire la reservation de tickets pour les jeux olympi
 10. instaler les depensenses avec la commande `npm i `
 11. Exécutez la commande `npm start` pour démarrer l'application.
 12. suivre les readme du front et du back.
-
+13. utiliser une cles ssh popur les tokens JWT_SECRET PUBLIC et JWT_SECRET_PRIVE
 ## Variable environment
 
 1. creer un fichier .env dans la dossier api qui ce trouve dans Backend.
