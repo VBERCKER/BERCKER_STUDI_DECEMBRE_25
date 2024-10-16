@@ -97,7 +97,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-    secure: false, // Assurez-vous que votre application utilise HTTPS
+    secure: true, // Assurez-vous que votre application utilise HTTPS
     httpOnly: true,
     maxAge: 60000 // Durée de vie du cookie en millisecondes
   }
