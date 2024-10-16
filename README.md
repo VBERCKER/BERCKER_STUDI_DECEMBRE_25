@@ -26,6 +26,7 @@ Cette application permet de faire la reservation de tickets pour les jeux olympi
 10. instaler les depensenses avec la commande `npm i `
 11. Exécutez la commande `npm start` pour démarrer l'application.
 12. suivre les readme du front et du back.
+13. autroriser votre cors dans le backend a recevoir des requêtte de votre front (wishlist)
 
 ## Variable environment
 
@@ -45,11 +46,16 @@ COKIES_SECRET =
 STRIPE_ENDPOINTSECRET = 
 SALT = 
 API_FRONT = http://localhost:...
-
+ADMIN_NOM= 
+ADMIN_PRENOM= 
+ADMIN_EMAIL= 
+ADMIN_PASSWORD= 
+ADMIN_ROLE= 
+ADMIN_NOM_UTILISATEUR= 
 
 
 ## Site internet 
 
-pas encore operationnel 
+https://bercker-studi-decembre-25-slgc.vercel.app/
 
 le code admin est dans la documentation à rendre.  
