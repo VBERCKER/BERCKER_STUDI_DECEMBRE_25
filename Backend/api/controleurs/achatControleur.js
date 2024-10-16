@@ -4,7 +4,7 @@ import sequelize from "sequelize";
 import jwt from "jsonwebtoken";
 import Stripe from "stripe";
 import env from "dotenv";
-import Joi from "joi";
+
 env.config();
 
 /*********stripe  */
@@ -136,7 +136,7 @@ export async function stripeWebhook(req, res) {
                     cles_achat: cles_achat,
                     cles_utilisateur: user.cles_utilisateur,
                   },
-                  process.env.JWT_SECRET
+                  process.env.JWT_SECRET_PUBLIC
                 );
 
                 for (let i = 0; i < quantity; i++) {

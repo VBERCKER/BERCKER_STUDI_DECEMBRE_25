@@ -99,10 +99,11 @@ export async function offreSelection(req, res) {
 
 export async function updateOffre(req, res) {
   const id = parseInt(req.params.id);
+  console.log("id:", id);
   if (!id) {
     return res.status(400).json({ message: "Il manque un paramètre" });
   }
-
+console.log("req.body:", req.body);
   const updateData = {};
   if (req.body.offre && req.body.offre.length > 0) {
     updateData.offre = req.body.offre;
@@ -116,7 +117,7 @@ export async function updateOffre(req, res) {
   if (req.body.places_dispo) {
     updateData.places_dispo = req.body.places_dispo;
   }
-
+console.log("updateData:", updateData);
   try {
     const [updated] = await Offre.update(updateData, {
       where: { id: id },

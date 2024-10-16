@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CardEbillet } from "../../composants/card";
 import { getCookie } from "../../composants/securite_cookies_token_auth_localstorage/cookies";
 import QRCode from "qrcode";
 import Boutton from "../../composants/bouton";
+import { UserContext } from "../../composants/informationsUser/UserContext.jsx";
 
 export default function Ebillet() {
+  const {user} = useContext(UserContext);
+  const { nom, prenom, mail, token, role } = user;
   const apiUrl = import.meta.env.VITE_API_URL;
   const [ticket, setTicket] = useState([]);
   const [qrcode, setQrcode] = useState([]);
@@ -18,7 +21,7 @@ export default function Ebillet() {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+     Authorization: `Bearer ${token }`
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -39,7 +42,7 @@ export default function Ebillet() {
     billets();
   }, []);
 
-  console.log(ticket);
+  
 
   function qrCode(cles) {
     QRCode.toDataURL(

@@ -64,7 +64,7 @@ function Home(){
       <div className="video">
       <h3 className="titreVideo">Tutoriel du site</h3>
       <div className="vidoeVideo">
-      <iframe width="760" height="515" src="https://www.youtube.com/embed/AsbhO2ceW8I?si=WBe1BzhDEB5EGqcc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe width="760" height="515" src="https://www.youtube.com/embed/AsbhO2ceW8I?si=WBe1BzhDEB5EGqcc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
       </div></div>
      <Footer/>
      <BannerCookies/>

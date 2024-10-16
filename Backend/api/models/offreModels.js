@@ -20,12 +20,12 @@ import offres from '../seeders/offre.js';
             
           },
           place_offre: {
-            type: DataTypes.INTEGER(10),
+            type: DataTypes.INTEGER,
             allowNull: false
            
           },
           prix_offre: {
-            type: DataTypes.INTEGER(10),
+            type: DataTypes.INTEGER,
             allowNull: false
             
           }, 
@@ -36,7 +36,7 @@ import offres from '../seeders/offre.js';
             
           }, 
           sport_id: {
-            type: DataTypes.INTEGER(10),
+            type: DataTypes.INTEGER,
             allowNull: false,
             references: {
               model: "sport",
@@ -53,9 +53,6 @@ import offres from '../seeders/offre.js';
     
 });
 
-/*sequelize.sync({alter:true, force:true}).then(()=>{
-  return Offre.bulkCreate(offres)
-}).catch((err)=>{console.log("offre sync",err)});// Création d*/
 
 console.log('Offre === sequelize.models.offre', Offre === sequelize.models.offre)
 

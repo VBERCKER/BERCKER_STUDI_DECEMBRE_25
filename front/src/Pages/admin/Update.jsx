@@ -1,14 +1,16 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import Buton from '../../composants/bouton'
-
+import { UserContext } from "../../composants/informationsUser/AdminContext.jsx";
 
 
 
 
 export default function Update () {
-const requestOptions = { method: 'GET', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*' }, redirect: "follow", referrerPolicy: "no-referrer" };
+const user = useContext(UserContext);
+const requestOptions = { method: 'GET', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", Authorization: `Bearer ${user.token }`  }, redirect: "follow", referrerPolicy: "no-referrer" };
 const apiUrl = import.meta.env.VITE_API_URL;
-   
+
+
 const [sport, setsport]=useState({
     sport : "",
     Offre :"",
@@ -30,6 +32,7 @@ function handleClickSport(e){
     fetch(`${apiUrl}/offre/offreselection/${sport}`,requestOptions)
   
       .then((response)=>{
+        console.log(response)
         return response=response.json()
       } )
       .then((result)=>{const data =result
@@ -57,10 +60,10 @@ function handleClickSport(e){
     const [update,setupdate]= useState({
 
        
-        Offre : "",
-        Place_offre:"",
-        Prix_offre: "",
-        Places_dispo:"",
+        offre : "",
+        place_offre:"",
+        prix_offre: "",
+        places_dispo:"",
        
        
       
@@ -76,12 +79,12 @@ function handleClickSport(e){
     console.log(update)
     };
     
-    const requestOptions1 = { method: 'PATCH', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*' }, redirect: "follow", referrerPolicy: "no-referrer", body: JSON.stringify(update) }; 
+    const requestOptions1 = { method: 'PATCH', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", Authorization: `Bearer ${user.token }` }, redirect: "follow", referrerPolicy: "no-referrer", body: JSON.stringify(update) }; 
     
     async function handleClick (e){
         e.preventDefault()
         
-        console.log(update.Place_offre)
+        console.log(update.place_offre)
     try{
        const result = await fetch(`${apiUrl}/offre/update/${sport.id}`,requestOptions1)
        console.log(result)
@@ -122,23 +125,23 @@ function handleClickSport(e){
         <div className="flex-block">
         <label>
         
-            <input type={hidden} className="input"   onChange={handleChange} name="Offre" placeholder={sport.Offre} required=""/>
+            <input type={hidden} className="input"   onChange={handleChange} name="offre" placeholder={sport.Offre} required=""/>
             <span>Nom de l'offre</span>
           
         </label>
         <label>
-            <input type={hidden} className="input"   onChange={handleChange} name="Place_offre" placeholder={sport.Place_offre} required=""/>
+            <input type={hidden} className="input"   onChange={handleChange} name="place_offre" placeholder={sport.Place_offre} required=""/>
             <span>Place dans l'offre</span>
            
         </label>
 
         <label>
-            <input type={hidden} className="input"   onChange={handleChange} name="Places_dispo" placeholder={sport.Places_dispo} required=""/>
+            <input type={hidden} className="input"   onChange={handleChange} name="places_dispo" placeholder={sport.Places_dispo} required=""/>
             <span>Places Disponibles</span>
             
         </label>
         <label>
-            <input type={hidden} className="input"  onChange={handleChange} name="Prix_offre" placeholder={sport.Prix_offre} required=""/>
+            <input type={hidden} className="input"  onChange={handleChange} name="prix_offre" placeholder={sport.Prix_offre} required=""/>
             <span>Prix de l'offre </span>
             
         </label>

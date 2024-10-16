@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'; 
+
 import env from "dotenv"
 env.config();
 
@@ -6,19 +6,16 @@ const randomNumber = () => Math.floor((Math.random() * 999999) * 7);
 const randomChar = () => String.fromCharCode(64 + Math.floor((Math.random() * 26) + 1));
 const cles = randomChar() + randomChar() + randomNumber() + randomChar() + randomChar() + randomNumber();
 
-//const pwd = process.env.PWD 
-//const passHash =  bcrypt.hash(pwd, 10);
-
 
 const utilisateurs = [
   {
-    nom: 'organisaterur',
-    prenom: 'admin',
-    nom_utilisateur: 'organisateur.admin',
-    mail: 'organisateur@gmail.com',
-    pwd: '$2b$10$FoCYbHpAJZTS3MXiSOc/ouG8c2wXaknDcM.DxZG2Ht5YCLBG1o/Ze' ,
+    nom: process.env.ADMIN_NOM,
+    prenom: process.env.ADMIN_PRENOM,
+    nom_utilisateur: process.env.ADMIN_NOM_UTILISATEUR,
+    mail: process.env.ADMIN_EMAIL,
+    pwd: process.env.ADMIN_PASSWORD,
     cles_utilisateur: cles,
-    role: 'true',
+    role: process.env.ADMIN_ROLE,
     token: 'some_token'
   },
   

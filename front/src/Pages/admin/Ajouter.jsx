@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import Buton from "../../composants/bouton";
+import { UserContext } from "../../composants/informationsUser/AdminContext.jsx";
 
 export default function Ajouter() {
+  const user = useContext(UserContext);
     const apiUrl = import.meta.env.VITE_API_URL;
   const [offre, setoffre] = useState({
     offre: "",
@@ -12,7 +14,7 @@ export default function Ajouter() {
   });
 
   function handleChange(e) {
-    console.log(offre);
+    
     setoffre((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
   const requestOptions = {
@@ -22,7 +24,7 @@ export default function Ajouter() {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+     Authorization: `Bearer ${user.token }` 
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -36,7 +38,7 @@ export default function Ajouter() {
         `${apiUrl}/offre/add`,
         requestOptions
       );
-      console.log(result);
+      
       alert("L'offre est ajoutée !");
       setoffre({
         Offre: "",

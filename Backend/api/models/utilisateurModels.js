@@ -70,14 +70,7 @@ createdAt: {
   timestamps: true 
 });
 Utilisateur.hasMany(Achat, { foreignKey: 'user_mail' , sourceKey: 'mail' });
-/*sequelize.sync({alter:true, force:true})
-  .then(() => {
-    console.log('La base de données a été synchronisée.');
-    // Insérer des valeurs dans la table Utilisateur
-    return Utilisateur.bulkCreate(utilisateurs);
-})
-.catch((err)=>{console.log("utilisateur sync:",err)})// Création de la table dans la base de données
-*/
+
 console.log('Utilisateur === sequelize.models.Utilisateur:',Utilisateur === sequelize.models.utilisateur); // true
 
 

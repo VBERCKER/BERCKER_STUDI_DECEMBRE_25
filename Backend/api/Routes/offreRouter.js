@@ -1,5 +1,5 @@
 import express from "express";
-
+import { verifyDroitToken } from "../midleware/verifierDroit.js";
 
 /**********import du controeleur */
 import {
@@ -24,17 +24,17 @@ OffreRouter.get("/offreadminfilter/:id", offreadminfilter);
 
 //ajouter une offre admin
 
-OffreRouter.post("/add", addOffre);
+OffreRouter.post("/add", verifyDroitToken,addOffre);
 
 //selectionner un offre à modifier
 
 OffreRouter.get("/offreselection/:id", offreSelection);
 
 //modifier une offre
-OffreRouter.patch("/update/:id", updateOffre);
+OffreRouter.patch("/update/:id",verifyDroitToken, updateOffre);
 
 /*****DELETE */
-OffreRouter.delete("/delete/:id", deleteOffre);
+OffreRouter.delete("/delete/:id",verifyDroitToken, deleteOffre);
 
 //export {router}
 export default OffreRouter;

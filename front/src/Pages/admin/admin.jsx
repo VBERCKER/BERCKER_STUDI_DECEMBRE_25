@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import Buton from "../../composants/bouton";
 import Sidebar from "../../composants/template/sidebar";
+import { UserProvider, UserContext } from "../../composants/informationsUser/AdminContext.jsx";
+
 
 export default function Admin() {
+  const user = useContext(UserContext);
   const apiUrl = import.meta.env.VITE_API_URL;
   const requestOptions = {
     method: "GET",
@@ -11,7 +14,7 @@ export default function Admin() {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+    
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
@@ -61,6 +64,7 @@ export default function Admin() {
   }
 
   return (
+    <UserProvider>
     <div className="page">
       <Sidebar
         lienTItre2={"modifier"}
@@ -136,5 +140,11 @@ export default function Admin() {
         }
       />
     </div>
+    </UserProvider>
   );
 }
+const UserConsumer = () => {
+  const { user } = useContext(UserContext);
+  return <>{user}</>;
+
+};

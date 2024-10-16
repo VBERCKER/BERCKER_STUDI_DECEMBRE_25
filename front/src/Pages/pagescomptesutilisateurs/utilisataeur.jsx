@@ -2,17 +2,19 @@ import React, { useState, useContext } from "react";
 import Boutton from "../../composants/bouton";
 import { getCookie } from "../../composants/securite_cookies_token_auth_localstorage/cookies";
 import { UserContext } from "../../composants/informationsUser/UserContext.jsx";
-import { useAuth } from '../../composants/securite_cookies_token_auth_localstorage/auth'
+import { useAuth } from '../../composants/securite_cookies_token_auth_localstorage/auth.jsx'
 import { useNavigate } from 'react-router-dom'
+import passwordValidator from "password-validator";
 
 export default function Utilisateur() {
-  const user = useContext(UserContext);
+  const {user} = useContext(UserContext);
+  const { nom, prenom, mail, token, role } = user;
   const apiUrl = import.meta.env.VITE_API_URL;
   const [pwd, setpwd] = useState({
     pwd: "",
     pwd2: "",
   });
-  const [nom, setnom] = useState({
+  const [nomModif, setnom] = useState({
     nom: "",
     prenom: "",
   });
@@ -29,7 +31,23 @@ export default function Utilisateur() {
 
   function handleClik(e) {
     e.preventDefault();
-    
+
+    //verifier entree utilisateur
+    // verfier les champs envoyé du front 
+  const schemaPasword = new passwordValidator();
+  schemaPasword
+  .is().min(8)
+  .has().uppercase()
+  .has().lowercase()
+  .has().digits()
+  .has().not().spaces()
+  .has().symbols()
+  .is().not().oneOf(["Passw0rd", "Password123","Azerty123"]);
+
+  if (schemaPasword.validate(pwd.pwd)=== false) {
+    setPassError("Le mots de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial 🤯");
+  }
+   else{
     if (pwd.pwd && pwd.pwd2) {
       console.log("ok");
       if (pwd.pwd === pwd.pwd2) {
@@ -40,7 +58,7 @@ export default function Utilisateur() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token }` 
           },
           redirect: "follow",
           referrerPolicy: "no-referrer",
@@ -48,11 +66,12 @@ export default function Utilisateur() {
         };
         try {
           const cookie = getCookie("user");
-          const result = fetch(
+          console.log(cookie);
+           fetch(
             `${apiUrl}/users/pwd/${cookie}`,
             requestOptions
           );
-          console.log(result);
+          
           alert("Mots de passe modifiée !");
         } catch (err) {
           console.log(err);
@@ -60,7 +79,7 @@ export default function Utilisateur() {
       } else {
         setPassError("Les mots de pas ne sont pas identiques");
       }
-    } else if (nom.nom && nom.prenom) {
+    } else if (nomModif.nom && nomModif.prenom) {
       const requestOptions1 = {
         method: "PATCH",
         mode: "cors",
@@ -68,19 +87,19 @@ export default function Utilisateur() {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token }` 
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",
-        body: JSON.stringify(nom),
+        body: JSON.stringify(nomModif),
       };
       try {
         const cookie = getCookie("user");
-        const result = fetch(
+        fetch(
           `${apiUrl}/users/utilisateur/${cookie}`,
           requestOptions1
         );
-        console.log(result);
+     
         alert("Nom et prénom modifiés !");
       } catch (err) {
         console.log(err);
@@ -88,12 +107,12 @@ export default function Utilisateur() {
     } else {
       seterror("Nom ou prénom vide");
     }
-  }
+  }}
 
   function handleClikSupp(e) {
     e.preventDefault();
     
-    if (userRole ==="true") {
+    if (role ==="true") {
       setuserRole(true);}
 
     const requestOptions = {
@@ -103,21 +122,19 @@ export default function Utilisateur() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        Authorization: `Bearer ${user.token }` 
+        Authorization: `Bearer ${token }` 
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
-      body: JSON.stringify({"role":userRole}),
+      body: JSON.stringify({"role":role}),
     };
     try {
       
       const cookie = getCookie("user");
-      const result = fetch(
+       fetch(
         `${apiUrl}/users/supp/${cookie}`,
         requestOptions
       );
-      console.log(requestOptions);
       alert("Compte supprimé !");
         auth.logout();
         localStorage.removeItem("token");
@@ -147,21 +164,21 @@ export default function Utilisateur() {
                 <input
                   className="input"
                   name="prenom"
-                  placeholder={user.prenom}
+                  placeholder={prenom}
                   onChange={handleChange}
                   required=""
                 />
-                <span>Prénom</span>
+                <span>Nouveau Prénom</span>
               </label>
               <label>
                 <input
                   className="input"
                   name="nom"
-                  placeholder={user.nom}
+                  placeholder={nom}
                   onChange={handleChange}
                   required=""
                 />
-                <span>Nom</span>
+                <span>Nouveau Nom</span>
               </label>
               <span style={{ color: "red" }}>{error}</span>
               <Boutton click={handleClik} btn={"Valider "} />
@@ -179,7 +196,7 @@ export default function Utilisateur() {
                   onChange={handleChange}
                   required=""
                 />
-                <span>Mots de passe</span>
+                <span>Nouveau Mots de passe</span>
               </label>
               <label>
                 <input

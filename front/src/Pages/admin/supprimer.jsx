@@ -1,13 +1,16 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import Buton from '../../composants/bouton'
+import { UserContext } from "../../composants/informationsUser/AdminContext.jsx";
 
 
 
 
 
-export default function Update () {
-const requestOptions = { method: 'GET', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*' }, redirect: "follow", referrerPolicy: "no-referrer" };
+export default function Supprimer() {
+const user = useContext(UserContext);
+const requestOptions = { method: 'GET', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", Authorization: `Bearer ${user.token }`  }, redirect: "follow", referrerPolicy: "no-referrer" };
 const apiUrl = import.meta.env.VITE_API_URL;
+
    
 const [sport, setsport]=useState({
     sport : "",
@@ -55,7 +58,7 @@ function handleClickSport(e){
 
  
    
-    const requestOptions1 = { method: 'DELETE', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", 'Access-Control-Allow-Origin': '*' }, redirect: "follow", referrerPolicy: "no-referrer" }; 
+    const requestOptions1 = { method: 'DELETE', mode: "cors", cache: "no-cache", credentials: "include", headers: { "Content-Type": "application/json", Authorization: `Bearer ${user.token }` }, redirect: "follow", referrerPolicy: "no-referrer" }; 
     
     async function handleClick (e){
         e.preventDefault()
@@ -63,8 +66,8 @@ function handleClickSport(e){
           
     try{
        const result =  await fetch(`${apiUrl}/offre/delete/${sport.id}`,requestOptions1)
-       console.log(result)
-       console.log('Fetch resultats:', result);
+       
+       
 
        if (result.ok) {
            console.log('Sport supprimé');

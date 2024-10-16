@@ -18,6 +18,7 @@ function Nav(){
     auth.logout()
     localStorage.removeItem('token')
     localStorage.removeItem('admin')
+    localStorage.removeItem('user')
     localStorage.removeItem('accepter-cookie')
     deleteCookie('user')
     deleteCookie('admin')

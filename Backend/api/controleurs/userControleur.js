@@ -1,9 +1,9 @@
 import express from "express";
 import Utilisateur from "../models/utilisateurModels.js";
 import bcrypt from "bcrypt";
-import { verifyToken } from "../midleware/token.js";
 import env from "dotenv";
 env.config();
+import passwordValidator from "password-validator";
 
 import fs from 'fs'; 
 import path from 'path';
@@ -22,19 +22,18 @@ const publicKEY = fs.readFileSync(path.resolve(__dirname, '../.certs/public.key'
 //import passport from "passport";
 import passport from "../midleware/passport.js";
 import jwt from "jsonwebtoken";
-import utilisateurs from "../seeders/utilisateur.js";
+
 
 const app = express();
-//app.use(passport.initialize());
-//app.use(passport.session());
+
 
 // function des routes de user
 export function test(req, res) {
   Utilisateur.findAll()
     .then((Utilisateur) => res.json({ data: Utilisateur }))
     .catch((err) =>
-      res.status(500).json({ message: "Ereur data base :", error: err })
-    ); //err a supp secu
+      res.status(500).json({ message: "Ereur data base :" })
+    ); 
 }
 // recuperer les infos utilisateurs
 
@@ -58,7 +57,7 @@ export async function user(req, res) {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: "Erreur serveur", error: err.message });
+      .json({ message: "Erreur serveur" });
   }
 }
 
@@ -66,6 +65,7 @@ export async function user(req, res) {
 
 export async function register(req, res) {
   try {
+    
     // Génération de la clé utilisateur
     const randomNumber = () => Math.floor(Math.random() * 999999 * 7);
     const randomChar = () =>
@@ -86,7 +86,43 @@ export async function register(req, res) {
         .status(400)
         .json({ message: "Tous les champs sont obligatoires" });
     }
+    // verfier les champs envoyé du front 
+    const schemaPasword = new passwordValidator();
+      schemaPasword
+      .is().min(8)
+      .has().uppercase()
+      .has().lowercase()
+      .has().digits()
+      .has().not().spaces()
+      .has().symbols()
+      .is().not().oneOf(["Passw0rd", "Password123","Azerty123"]);
 
+      const schemaNomPrenom= new passwordValidator();
+      schemaNomPrenom
+      .has().not().digits()
+      .has().not().symbols()
+      .has().not().spaces()
+      .is().min(2);
+
+    
+      if (schemaNomPrenom.validate(nom) === false) {
+        return res.status(400).json({ message: "Et non 🤯" });
+      }
+      if (schemaNomPrenom.validate(prenom) === false) {
+        return res.status(400).json({ message: "Et non 🤯" })
+        };
+      if (schemaPasword.validate(pwd)=== false) {
+        return res.status(400).json({ message: "Et non 🤯" })
+          };
+      
+    // Vérifier si l'adresse mail est valide
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(String(email).toLowerCase());
+    }
+    if (!validateEmail(mail)) {
+      return res.status(400).json({ message: "Adresse email invalide" });
+    }
     // Vérifier si l'utilisateur existe déjà
     const utilisateurExistant = await Utilisateur.findOne({
       where: { mail: mail },
@@ -99,6 +135,15 @@ export async function register(req, res) {
     // Hash du mot de passe
     const passHash = await bcrypt.hash(pwd, 10);
     const role = "false";
+ // generer un token 
+ const tokensign = jwt.sign(
+  {
+    nom: nom,
+    mail:mail,
+  },
+  privateKey,
+  { expiresIn: "2h" , algorithm: "RS256"}
+);
 
     // Enregistrement de l'utilisateur
     const utilisateur = await Utilisateur.create({
@@ -109,7 +154,7 @@ export async function register(req, res) {
       pwd: passHash,
       cles_utilisateur: cles,
       role: role,
-      token: 1,
+      token: tokensign,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -147,7 +192,7 @@ export async function oubliePwd(req, res) {
 export async function modifPwd(req, res) {
   const id = parseInt(req.params.id);
   const pwd = req.body.pwd;
-  
+ 
   const passHash = await bcrypt.hash(pwd, 10);
 
   //verifier si Id est present et coherent
@@ -155,6 +200,20 @@ export async function modifPwd(req, res) {
   if (!id) {
     return res.status(400).json({ message: "il manque un parametre" });
   }
+  // verfier les champs envoyé du front 
+  const schemaPasword = new passwordValidator();
+  schemaPasword
+  .is().min(8)
+  .has().uppercase()
+  .has().lowercase()
+  .has().digits()
+  .has().not().spaces()
+  .has().symbols()
+  .is().not().oneOf(["Passw0rd", "Password123","Azerty123"]);
+
+  if (schemaPasword.validate(pwd)=== false) {
+    return res.status(400).json({ message: "Et non 🤯" })
+      };
 
   //mise à jour du mot de passe
 
@@ -164,7 +223,7 @@ export async function modifPwd(req, res) {
         return res.status(404).json({ message: "utilisateur non trouvé" });
       }
       //mise à jour du mot de passe
-      utilisateur
+      Utilisateur
         .update({ pwd: passHash }, { where: { id: id } })
         .then((data) => res.json({ message: "ok" }, data))
         .catch((err) =>
@@ -181,7 +240,7 @@ export async function modifPwd(req, res) {
 export async function modifUtilisateur(req, res) {
   const id = parseInt(req.params.id);
   const { nom, prenom } = req.body;
-
+ 
   // Vérifier si l'ID est présent et cohérent
   if (!id) {
     return res.status(400).json({ message: "Il manque un paramètre" });
@@ -193,17 +252,33 @@ export async function modifUtilisateur(req, res) {
       .status(400)
       .json({ message: "Les champs nom et prenom sont requis" });
   }
+ // verfier les champs envoyé du front 
 
+ const schemaNomPrenom= new passwordValidator();
+ schemaNomPrenom
+ .has().not().digits()
+ .has().not().symbols()
+ .has().not().spaces()
+ .is().min(2);
+
+
+ if (schemaNomPrenom.validate(nom) === false) {
+   return res.status(400).json({ message: "Et non 🤯" });
+ }
+ if (schemaNomPrenom.validate(prenom) === false) {
+   return res.status(400).json({ message: "Et non 🤯" })
+   };
+ 
   try {
     // Trouver l'utilisateur par ID
     const utilisateur = await Utilisateur.findOne({ where: { id }, raw: true });
-
+    console.log(utilisateur);
     if (!utilisateur) {
       return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
 
     // Mettre à jour les informations de l'utilisateur
-    await Utilisateur.update({ nom, prenom }, { where: { id } });
+   const result = await Utilisateur.update({ nom, prenom }, { where: { id } });
 
     return res.json({ message: "Mise à jour réussie" });
   } catch (err) {

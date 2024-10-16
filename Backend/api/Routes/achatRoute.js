@@ -1,4 +1,5 @@
 import express from "express";
+import { verifyDroitToken } from "../midleware/verifierDroit.js";
 
 /********import acaht controleur******* */
 
@@ -17,14 +18,14 @@ let AchatRouter = express.Router();
 /****stripe */
 
 // route achat checkout session
-AchatRouter.post("/create-checkout-session/:id", createCheckoutSession);
+AchatRouter.post("/create-checkout-session/:id",verifyDroitToken, createCheckoutSession);
 
 // Route pour gérer les événements de paiement
 
 AchatRouter.post("/webhook", stripeWebhook);
 
 // Route pour récupérer les achats d'un utilisateur
-AchatRouter.get("/ebillet/:id", usersEbillet);
+AchatRouter.get("/ebillet/:id", verifyDroitToken,usersEbillet);
 
 // récupérer offre vendus
 AchatRouter.get("/vente", venteOffre);

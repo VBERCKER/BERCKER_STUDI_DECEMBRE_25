@@ -30,11 +30,5 @@ const Sport = sequelize.define('sport', {
 });
 Sport.hasMany(Offre, { foreignKey: 'sport_id' , sourceKey: 'id' });
 
-/*sequelize.sync({alter:true}).then(()=>{
-  console.log('La table Sport a été synchronisée.');
- return  Sport.bulkCreate(sports)
-}).catch((err)=>{console.log("sport syn:",err)});// Création de la table dans la base de données
-
-*/
 console.log('Sport === sequelize.models.Sport:',Sport === sequelize.models.sport); // true
 export default Sport;

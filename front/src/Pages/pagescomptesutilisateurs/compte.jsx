@@ -4,8 +4,9 @@ import Sidebar from "../../composants/template/sidebar";
 import { UserProvider, UserContext } from "../../composants/informationsUser/UserContext.jsx";
 
 function Compte() {
-  const user = useContext(UserContext);
-  console.log(user.nom);
+  const {user} = useContext(UserContext);
+  const { nom, prenom, mail, token, role } = user;
+ 
   return (
     <UserProvider>
       <div  style={{marginTop : "2%"}}className="page">
@@ -21,7 +22,7 @@ function Compte() {
           titrem={"Mon compte"}
           content={
             <div style={{marginTop : "2%"}}className="container text-center">
-              <h1 >Bienvenue {user.prenom}</h1>
+              <h1 >Bienvenue {prenom}</h1>
               <p >Utiliser le menu de gauche pour naviguer. </p>
             </div>
           }
@@ -31,10 +32,7 @@ function Compte() {
   );
 }
 
-const UserConsumer = () => {
-  const user = React.useContext(UserContext);
-  return <>{user}</>;
-};
+
 
 export default Compte;
 

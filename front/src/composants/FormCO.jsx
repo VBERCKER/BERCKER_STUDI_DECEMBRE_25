@@ -4,16 +4,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "./securite_cookies_token_auth_localstorage/auth";
-import {
-  userprenom,
-  usernom,
-  usermail,
-  userpwd,
-} from "./securite_cookies_token_auth_localstorage/validationForm";
+import { usermail} from "./securite_cookies_token_auth_localstorage/validationForm";
 import { setCookie } from "./securite_cookies_token_auth_localstorage/cookies";
 import { accountService } from "./securite_cookies_token_auth_localstorage/servicetoken";
-import Boutton from "./bouton";
 import { useEffect } from "react";
+import passwordValidator from "password-validator";
 
 
 function FormRE() {
@@ -26,7 +21,24 @@ function FormRE() {
     pwd: "",
     confirmpwd: "",
   });
+const schemaPasword = new passwordValidator();
+schemaPasword
+.is().min(8)
+.has().uppercase()
+.has().lowercase()
+.has().digits()
+.has().not().spaces()
+.has().symbols()
+.is().not().oneOf(["Passw0rd", "Password123","Azerty123"]);
 
+const schemaNomPrenom= new passwordValidator();
+schemaNomPrenom
+.has().not().digits()
+.has().not().symbols()
+.has().not().spaces()
+.is().min(2);
+
+      
   const [nom, setnom] = useState("");
   const [prenom, setprenom] = useState("");
   const [mail, setemail] = useState("");
@@ -35,30 +47,20 @@ function FormRE() {
   const [erreur, setErreur] = useState("");
 
   const handleChange = async (e) => {
-    let verifprenom = {
-      prenom: signin.prenom,
-    };
-    let verifnom = {
-      nom: signin.nom,
-    };
+   
     let verifmail = {
       mail: signin.mail,
     };
-    let verifpwd = {
-      pwd: signin.pwd,
-    };
-
-    const validpwd = await userpwd.isValid(verifpwd);
-    const validPrenom = await userprenom.isValid(verifprenom);
-    const validnom = await usernom.isValid(verifnom);
+    
+  
     const validmail = await usermail.isValid(verifmail);
 
-    if (validnom == false) {
+    if (schemaNomPrenom.validate(signin.nom) === false) {
       console.log("Entrez votre nom");
     } else {
       setnom("");
     }
-    if (validPrenom == false) {
+    if (schemaNomPrenom.validate(signin.prenom) === false) {
       console.log("Entrez votre prenom");
     } else {
       setprenom("");
@@ -69,7 +71,7 @@ function FormRE() {
     } else {
       setemail("");
     }
-    if (validpwd == false) {
+    if (schemaPasword.validate(signin.pwd)=== false) {
       console.log("Entrez un mot de passe");
     } else {
       setpwd("");
@@ -81,36 +83,24 @@ function FormRE() {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    let verifprenom = {
-      prenom: signin.prenom,
-    };
-    let verifnom = {
-      nom: signin.nom,
-    };
     let verifmail = {
       mail: signin.mail,
     };
-    let verifpwd = {
-      pwd: signin.pwd,
-    };
 
-    const validpwd = await userpwd.isValid(verifpwd);
-    const validPrenom = await userprenom.isValid(verifprenom);
-    const validnom = await usernom.isValid(verifnom);
     const validmail = await usermail.isValid(verifmail);
 
-    if (validPrenom == false) {
-      setprenom("Entrez votre prénom");
-    } else if (validnom == false) {
-      setnom("Entrez votre nom");
-    } else if (validPrenom == false) {
-      setprenom("Entrez votre prénom");
+    
+    if (schemaNomPrenom.validate(signin.prenom) === false) {
+      setprenom("Entrez un prénom valide.");
+    } else if (schemaNomPrenom.validate(signin.nom) === false) {
+      setnom("Entrez un nom valide.");
     } else if (validmail == false) {
-      setemail("Entrez votre email");
-    } else if (validpwd == false) {
-      setpwd("Entrez un mots de passe valide.");
+      setemail("Entrez un email valide");
+    } else if (schemaPasword.validate(signin.pwd)=== false) {
+      setpwd("Le mots de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial");
     } else if (signin.pwd !== signin.confirmpwd)
       setconfirmpwd("Les mots de passe ne sont pas identiques");
+     
     else {
       try {
         await axios.post(`${apiUrl}/users/add`, signin);
@@ -230,7 +220,6 @@ function LogIN() {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",
@@ -242,29 +231,26 @@ function LogIN() {
         requestOptions
       );
       const response = await result.json();
-      console.log(result);
-      console.log(response.message);
+      
 
       if (response.message == "Authentification réussie") {
         if (response.user.role === "false") {
           accountService.saveToken(response.access_token);
-          console.log(response.user.role);
           auth.login({ ...login, role: "false" }); 
           setCookie("user", response.user.id, 2);
+          setCookie("token", response.access_token, 2);
           navigate(redirectPath, { replace: true });
         } else if (response.user.role === "true") {
-          
-          console.log(response.access_token);
           auth.login({ ...login, role: "true" }); 
           setCookie("admin", response.user.id, 2);
+          setCookie("token", response.access_token, 2);
           navigate(redirectPathAdmin, { replace: true });
         }
       } else {
         setErreur(response.message);
-        console.log(response);
       }
     } catch (error) {
-      console.log(error);
+      console.log("error :", "erreur de connexion");
     }
   };
 
@@ -291,7 +277,7 @@ function LogIN() {
      try {
       const result = await fetch(`${apiUrl}/users/token`, requestOptions);
       const response = await result.json();
-      console.log(response);
+     
 
       if (response.token === "ok") {
         auth.login(login);
@@ -308,7 +294,7 @@ function LogIN() {
         console.log("Invalid token response");
       }
     } catch (error) {
-      console.log("Error during token validation:", error);
+      console.log("Error during token validation:", "error");
     }
   };
 

@@ -33,13 +33,17 @@ import helmet from "helmet";
 
 // Helmet
 app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        "script-src": ["'self'", "example.com"],// les police de caractere et les script//
-      },
+   helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://js.stripe.com/", "https://www.w3schools.com","https://www.youtube.com/"],
+      fontSrc: ["'self'", "data:"],
+      scriptSrc: ["'self'", "https://js.stripe.com/","https://www.youtube.com/"],
+      connectSrc: ["'self'", "https://js.stripe.com/"],
+      imgSrc: ["'self'", "data:"],
+      frameSrc: ["'self'", "https://js.stripe.com/","https://www.youtube.com/"],
     },
-  }),
+  })
 );
 
 
@@ -48,12 +52,14 @@ const whitelist = [
   "http://localhost:3000",
   "http://localhost:5173",
   "https://checkout.stripe.com/",
-  "https://bercker-studi-decembre-25-slgc.vercel.app"  /** other domains if any */,
+  "https://bercker-studi-decembre-25-slgc.vercel.app",
+  "https://q.stripe.com/csp-report ",
+  "https://js.stripe.com/"/** other domains if any */,
 ];
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
+    if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS et oui "));
@@ -73,10 +79,13 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors(corsOptions));
+
+// Content Security Policy
+
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; style-src 'self' 'unsafe-inline';"
+    "default-src 'self'; style-src 'self' 'unsafe-inline' https://js.stripe.com/; font-src 'self' data:;"
   );
   next();
 });
@@ -87,7 +96,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, // Assurez-vous que 'secure' est false si vous n'utilisez pas HTTPS
+    cookie: {
+    secure: false, // Assurez-vous que votre application utilise HTTPS
+    httpOnly: true,
+    maxAge: 60000 // Durée de vie du cookie en millisecondes
+  }
   })
 );
 /*******use generle limiter */

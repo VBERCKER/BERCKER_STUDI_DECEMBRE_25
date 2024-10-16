@@ -28,20 +28,20 @@ UtilisateurRouter.get("");
 UtilisateurRouter.get("/test", test);
 
 // recuperer les infos utilisateurs
-UtilisateurRouter.get("/:id", user);
+UtilisateurRouter.get("/:id",verifyDroitToken, user);
 //enregistrer un utilisateur
 UtilisateurRouter.post("/add", registerLimiter,register);
 
 //oublie mots de pass
 
-UtilisateurRouter.patch("/pwd", oubliePwd);
+UtilisateurRouter.patch("/pwd",verifyDroitToken, oubliePwd);
 
 //mise à jour du mot de passe
 
-UtilisateurRouter.patch("/pwd/:id", modifPwd);
+UtilisateurRouter.patch("/pwd/:id",verifyDroitToken, modifPwd);
 
 //mise à jour des informations de l'utilisateur
-UtilisateurRouter.patch("/utilisateur/:id", modifUtilisateur);
+UtilisateurRouter.patch("/utilisateur/:id",verifyDroitToken, modifUtilisateur);
 
 //supprimer un utilisateur
 UtilisateurRouter.delete("/supp/:id", verifyDroitToken,supp);

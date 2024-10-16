@@ -66,13 +66,9 @@ import Utilisateur from '../models/utilisateurModels.js';
     
 });
 
-//Achat.belongsTo( Utilisateur, { foreignKey: 'user_mail', targetKey: 'mail' });
+
 
 console.log('Achat === sequelize.models.achat', Achat === sequelize.models.achat); // true
 
-/*sequelize.sync({alter:true}).then(()=>{
-  console.log('La table Achat a été synchronisée.');
-  
-}).catch((err)=>{console.log("achat sync:",err)});// Création d
-*/
+
 export default Achat;

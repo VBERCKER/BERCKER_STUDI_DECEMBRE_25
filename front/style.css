@@ -1,4 +1,4 @@
-/*@font-face {
+@font-face {
   font-family: "Geologica-p";
   font-weight: 400;
   src: url("/police/font/Geologica_Auto-Regular.ttf");
@@ -7,7 +7,7 @@
   font-family: "Geologica-titre";
   font-weight: 600;
   src: url("/police/font/Geologica_Cursive-SemiBold.ttf");
-}*/
+}
 
 body {
   background: rgb(2, 0, 36);
@@ -24,7 +24,7 @@ body {
 }
 /*Police*/
 /*.police-titre {
-  font-family: "Geologica-titre", sans-serif;
+  font-family: "Geologica-titre", sans-serif;Å
 }
 .police {
   font-family: "Geologica-titre", sans-serif;
