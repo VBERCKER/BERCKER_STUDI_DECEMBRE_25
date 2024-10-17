@@ -58,4 +58,5 @@ ADMIN_NOM_UTILISATEUR=
 
 https://bercker-studi-decembre-25-slgc.vercel.app/
 
-le code admin est dans la documentation à rendre.  ou vous pouvez les informations admin dans les environements 
+##Admin 
+les informations et code admin sont dans la documentation à rendre copier coller les informations admin pour que cela fonctionne. 
