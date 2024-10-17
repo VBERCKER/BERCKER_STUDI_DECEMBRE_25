@@ -2,7 +2,7 @@
  
 # Nom de l'application
 
-JO34
+JO24
 
 ## Description
 Cette application permet de faire la reservation de tickets pour les jeux olympique 2024
@@ -13,6 +13,11 @@ Cette application permet de faire la reservation de tickets pour les jeux olympi
 - payer et obtenir son ticket
 - modifier supprimer ajuter voir les offres (admin)
 
+## technologie 
+- Node JS
+- REACT JS
+- VITE
+  
 ## Installation
 1. Clonez ce dépôt distant.
 2. ouvrir le dossier sur votre editeur de code.
@@ -27,34 +32,39 @@ Cette application permet de faire la reservation de tickets pour les jeux olympi
 11. Exécutez la commande `npm start` pour démarrer l'application.
 12. suivre les readme du front et du back.
 13. autroriser votre cors dans le backend a recevoir des requêtte de votre front (wishlist)
+14. Aller sur Stripe pour pour générer votre clés client Stripe
 
 ## Variable environment
 
 1. creer un fichier .env dans la dossier api qui ce trouve dans Backend.
 2. entrez vos variable d'environement sous les noms suivants :
 
-SERVER_PORT = 
-PG_HOST= 
-PG_USER= 
-PG_PASSWORD= 
-PG_DATABASE= 
-PG_PORT= 
-DATABASE_ADMIN_URL = 
-JWT_SECRET = 
-STRIPE_KEY = 
-COKIES_SECRET = 
-STRIPE_ENDPOINTSECRET = 
-SALT = 
-API_FRONT = http://localhost:...
-ADMIN_NOM= 
-ADMIN_PRENOM= 
-ADMIN_EMAIL= 
-ADMIN_PASSWORD= 
-ADMIN_ROLE= 
-ADMIN_NOM_UTILISATEUR= 
+SERVER_PORT = Le port de votre serveurs 
+PG_HOST= le host de votre base de donnée postgres 
+PG_USER= le username de votre base de donnée postgres 
+PG_PASSWORD= le passeword de votre base de donnée postgres 
+PG_DATABASE= le nom de votre basse de donnée postgres
+PG_PORT=  le port de votre basse de donnée postgres 
+DATABASE_ADMIN_URL = URL de votre basse de donnée postgres
+JWT_SECRET = votre cles secret token 
+STRIPE_KEY = votre cles stripe 
+COKIES_SECRET = vote cles secrete 
+STRIPE_ENDPOINTSECRET = votre stripe ENDPOINT 
+SALT = le nombre de tour pout saller les mots de passes
+API_FRONT = URL de votre api front 
+ADMIN_NOM= voir les informatiosn dans la documentations 
+ADMIN_PRENOM= voir les informatiosn dans la documentations 
+ADMIN_EMAIL= voir les informatiosn dans la documentations 
+ADMIN_PASSWORD= voir les informatiosn dans la documentations 
+ADMIN_ROLE= voir les informatiosn dans la documentations 
+ADMIN_NOM_UTILISATEUR= voir les informatiosn dans la documentations 
 
+1. creer un fichier .env dans la dossier api qui ce trouve dans Backend.
+2. entrez vos variable d'environement sous les noms suivants :
 
-## Site internet 
+VITE_API_URL= Votre URL de l'API 
+VITE_STRIPE_PUBLIC= VOtre cles STRIPE public 
+
 
 https://bercker-studi-decembre-25-slgc.vercel.app/
 
