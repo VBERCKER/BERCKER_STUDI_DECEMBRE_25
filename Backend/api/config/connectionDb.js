@@ -13,6 +13,9 @@ export const sequelize = new Sequelize({
   dialect: 'postgres', 
   dialectModule: pg,
   protocol: 'postgres',
+  dialectOptions: {
+    statement_timeout: 10000 // Timeout en millisecondes
+  }
 });
 
 const db = async () => {
