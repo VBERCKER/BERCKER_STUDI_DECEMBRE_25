@@ -58,7 +58,10 @@ const whitelist = [
   "https://js.stripe.com",
   "https://dashboard.stripe.com",
   "https://api.stripe.com",
-  "https://hooks.stripe.com"/** other domains if any */,
+  "https://hooks.stripe.com",
+  "https://m.stripe.network",
+
+/** other domains if any */,
 ];
 const corsOptions = {
   credentials: true,
@@ -70,6 +73,7 @@ const corsOptions = {
     }
   },
 };
+
 
 //app.use(express.urlencoded({limit:'30mb'}))    /// non non
 app.use(express.json());
@@ -101,7 +105,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-    secure: false, // Assurez-vous que votre application utilise HTTPS
+    secure: true, // Assurez-vous que votre application utilise HTTPS
     httpOnly: true,
     maxAge: 60000 // Durée de vie du cookie en millisecondes
   }
@@ -128,7 +132,7 @@ app.use("/sport", SportRouter);
 app.use("/offre", OffreRouter);
 
 //Achat de billets *********************************************
-app.use("/achat", AchatRouter);
+app.use("/achat",AchatRouter);
 
 // Fonction pour insérer les données si elles n'existent pas
 const insertDataIfNotExists = async () => {
