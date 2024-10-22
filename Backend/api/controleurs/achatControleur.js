@@ -7,6 +7,22 @@ import env from "dotenv";
 
 env.config();
 
+import fs from 'fs'; 
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+/*******fs import */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
+/**** cles  */
+const privateKEY = fs.readFileSync(path.resolve(__dirname, '../.certs/private.key'), 'utf8');
+const publicKEY = fs.readFileSync(path.resolve(__dirname, '../.certs/public.key'), 'utf8');
+
+
+
 /*********stripe  */
 const stripeClient = new Stripe(process.env.STRIPE_KEY);
 /********************* */
@@ -136,7 +152,7 @@ export async function stripeWebhook(req, res) {
                     cles_achat: cles_achat,
                     cles_utilisateur: user.cles_utilisateur,
                   },
-                  process.env.JWT_SECRET_PUBLIC
+                  privateKEY,{ algorithm: "RS256"}
                 );
 
                 for (let i = 0; i < quantity; i++) {

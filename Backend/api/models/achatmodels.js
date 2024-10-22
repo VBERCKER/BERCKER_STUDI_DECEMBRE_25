@@ -33,7 +33,7 @@ import Utilisateur from '../models/utilisateurModels.js';
            
           },
           cles_achat: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             
             

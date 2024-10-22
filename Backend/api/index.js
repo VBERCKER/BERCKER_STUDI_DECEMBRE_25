@@ -4,7 +4,8 @@ const app = express();
 import bodyParser from "body-parser";
 import cors from "cors";
 import session from "express-session";
-
+import env from 'dotenv';
+env.config();
 /***************** Import de la database */
 
 import { sequelize } from "./config/connectionDb.js";
@@ -51,15 +52,18 @@ app.use(
 const whitelist = [
   "http://localhost:3000",
   "http://localhost:5173",
-  "https://checkout.stripe.com/",
+  "https://checkout.stripe.com",
   "https://bercker-studi-decembre-25-slgc.vercel.app",
-  "https://q.stripe.com/csp-report ",
-  "https://js.stripe.com/"/** other domains if any */,
+  "https://q.stripe.com/csp-report",
+  "https://js.stripe.com",
+  "https://dashboard.stripe.com",
+  "https://api.stripe.com",
+  "https://hooks.stripe.com"/** other domains if any */,
 ];
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS et oui "));
@@ -97,7 +101,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-    secure: true, // Assurez-vous que votre application utilise HTTPS
+    secure: false, // Assurez-vous que votre application utilise HTTPS
     httpOnly: true,
     maxAge: 60000 // Durée de vie du cookie en millisecondes
   }
