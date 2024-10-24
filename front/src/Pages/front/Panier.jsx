@@ -41,6 +41,16 @@ export default function PanierFront(){
        
         navigate("/compte/PanierValider")
     }
+
+    function handleRemove(ticketId) {
+        const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer ce produit ?");
+        if (confirmDelete) {
+            remove(ticketId);
+            panier();
+            document.location.reload(false) // Mettre à jour le panier après suppression
+        }
+    }
+    
     useEffect(()=>{ 
        panier()
        prixTotal()
@@ -98,7 +108,7 @@ export default function PanierFront(){
                 <input type="number" value={items.quantity} onChange={(e) => updateQuantity(items.id, e.target.value)} />
             </td>
             <td>{items.prix} €</td>
-            <td><button onClick={() =>{ remove(items);document.location.reload(false)}}>Supprimer</button></td>
+            <td><button onClick={() => handleRemove(items)}>Supprimer</button></td>
         </tr>
     );
 })}

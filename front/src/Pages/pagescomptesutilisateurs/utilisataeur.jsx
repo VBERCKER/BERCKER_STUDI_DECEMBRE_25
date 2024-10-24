@@ -112,6 +112,12 @@ export default function Utilisateur() {
   function handleClikSupp(e) {
     e.preventDefault();
     
+     // Demander une confirmation avant de supprimer
+  const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ?");
+  if (!confirmDelete) {
+    return; 
+  }
+
     if (role ==="true") {
       setuserRole(true);}
 
